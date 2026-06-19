@@ -62,9 +62,9 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
     <div className="min-h-screen bg-black">
 
       {/* ── HEADER ─────────────────────────────────────────── */}
-      <header className="sticky top-0 z-30 bg-nw-black/95 backdrop-blur-sm border-b border-nw-white/8 px-5 py-4">
+      <header className="sticky top-0 z-30 bg-white border-b border-black/8 px-5 py-4">
         <div className="flex items-center justify-between max-w-2xl mx-auto">
-          <Image src="/logo.png" alt="Nanawax" width={65} height={29} unoptimized className="invert" />
+          <Image src="/logo.png" alt="Nanawax" width={65} height={29} unoptimized />
           <div className="flex items-center gap-3">
             <a
               href="/admin/events/new"
@@ -73,7 +73,7 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
               <Plus size={13} />
               Nouvel événement
             </a>
-            <button onClick={handleLogout} className="text-nw-white/25 hover:text-nw-white/50 transition-colors">
+            <button onClick={handleLogout} className="text-black/30 hover:text-black/60 transition-colors">
               <LogOut size={15} />
             </button>
           </div>
@@ -87,13 +87,13 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
           <div className="relative">
             <button
               onClick={() => setShowEventPicker(s => !s)}
-              className="w-full flex items-center justify-between bg-nw-white/5 border border-nw-white/10 px-4 py-3 hover:border-nw-white/20 transition-colors"
+              className="w-full flex items-center justify-between bg-nw-white/5 border border-nw-white/10 px-4 py-3 hover:border-white/40 transition-colors"
             >
               <div className="text-left">
                 <p className="text-[9px] font-display uppercase tracking-[0.2em] text-nw-white/30 mb-0.5">Événement actif</p>
                 <p className="text-sm font-display font-light text-nw-white">{event.name}</p>
               </div>
-              <ChevronDown size={15} className={`text-nw-white/40 transition-transform ${showEventPicker ? 'rotate-180' : ''}`} />
+              <ChevronDown size={15} className={`text-nw-white transition-transform ${showEventPicker ? 'rotate-180' : ''}`} />
             </button>
             {showEventPicker && (
               <div className="absolute top-full left-0 right-0 z-20 bg-[#1a1a1a] border border-nw-white/10 border-t-0">
@@ -101,10 +101,10 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
                   <a
                     key={e.id}
                     href={`/admin?event=${e.id}`}
-                    className={`flex items-center justify-between px-4 py-3 hover:bg-nw-white/5 transition-colors ${e.id === event.id ? 'text-nw-camel' : 'text-nw-white/60'}`}
+                    className={`flex items-center justify-between px-4 py-3 hover:bg-nw-white/5 transition-colors ${e.id === event.id ? 'text-nw-camel' : 'text-nw-white'}`}
                   >
                     <span className="text-sm font-display font-light">{e.name}</span>
-                    <span className="text-[10px] text-nw-white/25">{new Date(e.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}</span>
+                    <span className="text-[10px] text-nw-white">{new Date(e.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}</span>
                   </a>
                 ))}
               </div>
@@ -116,13 +116,13 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
         <div className="pt-2">
           <p className="text-[10px] font-display uppercase tracking-[0.25em] text-nw-camel mb-2">Événement</p>
           <h1 className="font-display font-thin text-3xl text-nw-white leading-tight mb-2">{event.name}</h1>
-          <p className="text-sm text-nw-white/40">{formatDate(event.date)} · {formatTime(event.date)}</p>
-          <p className="text-xs text-nw-white/25 mt-0.5">{event.location}</p>
+          <p className="text-sm text-nw-white">{formatDate(event.date)} · {formatTime(event.date)}</p>
+          <p className="text-xs text-nw-white mt-0.5">{event.location}</p>
         </div>
 
         {/* ── PLACES ─────────────────────────────────────────── */}
-        <div className="bg-nw-white/5 border border-nw-white/20 p-6">
-          <p className="text-[10px] font-display uppercase tracking-[0.2em] text-nw-white/60 mb-6">
+        <div className="bg-nw-white/5 border border-white/40 p-6">
+          <p className="text-[10px] font-display uppercase tracking-[0.2em] text-nw-white mb-6">
             Gestion des places
           </p>
           <CapacitySlider
@@ -144,7 +144,7 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
               </div>
               <div>
                 <p className="text-sm font-display font-light text-nw-white">Liens d'inscription VIP</p>
-                <p className="text-xs text-nw-white/60 mt-0.5">Générer des liens personnels</p>
+                <p className="text-xs text-nw-white mt-0.5">Générer des liens personnels</p>
               </div>
             </div>
             <ChevronRight size={16} className="text-nw-camel/60 group-hover:text-nw-camel transition-colors" />
@@ -158,7 +158,7 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
               </div>
               <div>
                 <p className="text-sm font-display font-light text-nw-white">Catalogue privé</p>
-                <p className="text-xs text-nw-white/60 mt-0.5">Pièces visibles après confirmation</p>
+                <p className="text-xs text-nw-white mt-0.5">Pièces visibles après confirmation</p>
               </div>
             </div>
             <ChevronRight size={16} className="text-nw-blue/40 group-hover:text-nw-blue transition-colors" />
@@ -172,7 +172,7 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
               </div>
               <div>
                 <p className="text-sm font-display font-light text-nw-white">Messagerie & cadeaux</p>
-                <p className="text-xs text-nw-white/60 mt-0.5">Billets, fichiers, messages exclusifs</p>
+                <p className="text-xs text-nw-white mt-0.5">Billets, fichiers, messages exclusifs</p>
               </div>
             </div>
             <ChevronRight size={16} className="text-nw-sage/40 group-hover:text-nw-sage transition-colors" />
@@ -193,7 +193,7 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
                 className={`flex items-center gap-1.5 text-[10px] font-display uppercase tracking-[0.1em] px-3 py-2 whitespace-nowrap transition-colors ${
                   filter === f.key
                     ? 'bg-nw-white text-nw-black'
-                    : 'text-nw-white/40 hover:text-nw-white/70 border border-nw-white/10'
+                    : 'text-nw-white hover:text-nw-white/70 border border-nw-white/10'
                 }`}
               >
                 {f.label}
@@ -207,7 +207,7 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
           {/* Rows */}
           <div className="divide-y divide-nw-white/6">
             {filteredGuests.length === 0 && (
-              <p className="text-sm text-nw-white/25 text-center py-8">Aucune invitée dans cette catégorie.</p>
+              <p className="text-sm text-nw-white text-center py-8">Aucune invitée dans cette catégorie.</p>
             )}
             {filteredGuests.map(guest => (
               <div key={guest.id} className="flex items-center gap-3 py-4 group">
@@ -229,7 +229,7 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
           {/* Inviter */}
           <button
             onClick={() => setShowInvite(true)}
-            className="mt-5 w-full border border-dashed border-nw-white/15 py-4 flex items-center justify-center gap-2 text-[11px] font-display uppercase tracking-[0.12em] text-nw-white/40 hover:border-nw-camel/40 hover:text-nw-camel transition-colors"
+            className="mt-5 w-full border border-dashed border-nw-white/15 py-4 flex items-center justify-center gap-2 text-[11px] font-display uppercase tracking-[0.12em] text-nw-white hover:border-nw-camel/40 hover:text-nw-camel transition-colors"
           >
             <Plus size={13} />
             Inviter une nouvelle cliente
