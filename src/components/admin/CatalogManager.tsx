@@ -27,6 +27,7 @@ export function CatalogManager({ eventId, items: initialItems }: Props) {
   const [imagePreview, setImagePreview] = useState<string | null>(null)
   const [loading,      setLoading]      = useState(false)
   const [deleting,     setDeleting]     = useState<string | null>(null)
+  const [error,        setError]        = useState('')
 
   function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
@@ -42,18 +43,18 @@ export function CatalogManager({ eventId, items: initialItems }: Props) {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
+    setError('')
     try {
       const fd = new FormData()
       fd.set('name', name)
       fd.set('price', price)
       if (imageFile) fd.set('image', imageFile)
-      const res = await fetch(`/api/events/${eventId}/catalog`, { method: 'POST', body: fd })
-      if (res.ok) {
-        const newItem = await res.json()
-        setItems(prev => [newItem, ...prev])
-        resetForm()
-        router.refresh()
-      }
+      const res  = await fetch(`/api/events/${eventId}/catalog`, { method: 'POST', body: fd })
+      const data = await res.json()
+      if (!res.ok) { setError(data.error ?? 'Erreur lors de l\'ajout.'); return }
+      setItems(prev => [data, ...prev])
+      resetForm()
+      router.refresh()
     } finally {
       setLoading(false)
     }
@@ -189,6 +190,10 @@ export function CatalogManager({ eventId, items: initialItems }: Props) {
                   className={inputClass}
                 />
               </div>
+
+              {error && (
+                <p className="text-xs text-red-400 bg-red-900/20 px-3 py-2">{error}</p>
+              )}
 
               {/* Actions */}
               <div className="flex gap-3 pt-1">

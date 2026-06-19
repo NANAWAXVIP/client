@@ -38,10 +38,13 @@ export async function POST(req: NextRequest, { params }: Params) {
       .from('catalog')
       .upload(path, buffer, { contentType: imageFile.type, upsert: false })
 
-    if (!uploadError) {
-      const { data: urlData } = supabase.storage.from('catalog').getPublicUrl(path)
-      image_url = urlData.publicUrl
+    if (uploadError) {
+      console.error('[catalog upload]', uploadError.message)
+      return NextResponse.json({ error: `Upload image échoué : ${uploadError.message}` }, { status: 500 })
     }
+
+    const { data: urlData } = supabase.storage.from('catalog').getPublicUrl(path)
+    image_url = urlData.publicUrl
   }
 
   const { data, error } = await supabase
