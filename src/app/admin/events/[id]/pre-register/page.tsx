@@ -32,7 +32,7 @@ export default async function PreRegAdminPage({ params }: Props) {
           <Link href="/admin" className="text-black/40 hover:text-black transition-colors">
             <ArrowLeft size={18} strokeWidth={1.5} />
           </Link>
-          <Image src="/logo.png" alt="Nanawax" width={65} height={29} unoptimized />
+          <a href="/"><Image src="/logo.png" alt="Nanawax" width={65} height={29} unoptimized /></a>
           <div className="w-6" />
         </div>
       </header>
