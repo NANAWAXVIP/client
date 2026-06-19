@@ -80,10 +80,16 @@ export async function POST(req: NextRequest, { params }: Params) {
   }
 
   // ── Lien landing page (pas d'event_id) ───────────────────────────
-  // Sauvegarde uniquement les infos — Maureen envoie l'invitation depuis l'admin
+  // Sauvegarde les infos et marque le lien comme utilisé → invalide si quelqu'un revient
   const { error } = await supabase
     .from('pre_registrations')
-    .update({ name: name.trim(), email: email.trim(), phone: phone?.trim() || null })
+    .update({
+      name: name.trim(),
+      email: email.trim(),
+      phone: phone?.trim() || null,
+      status: 'registered',
+      registered_at: new Date().toISOString(),
+    })
     .eq('token', token)
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })

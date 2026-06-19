@@ -17,9 +17,9 @@ export async function POST(req: NextRequest, { params }: Params) {
     .eq('id', id)
     .single()
 
-  if (!preReg)        return NextResponse.json({ error: 'Demande introuvable.' }, { status: 404 })
-  if (!preReg.name)   return NextResponse.json({ error: 'Informations incomplètes.' }, { status: 400 })
-  if (preReg.status === 'registered') return NextResponse.json({ error: 'Déjà invitée.' }, { status: 409 })
+  if (!preReg)      return NextResponse.json({ error: 'Demande introuvable.' }, { status: 404 })
+  if (!preReg.name) return NextResponse.json({ error: 'Informations incomplètes.' }, { status: 400 })
+  if (preReg.guest_id) return NextResponse.json({ error: 'Déjà invitée.' }, { status: 409 })
 
   // Créer le guest
   const { data: guest, error } = await supabase

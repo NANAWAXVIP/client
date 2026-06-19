@@ -64,7 +64,7 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
       {/* ── HEADER NOIR ────────────────────────────────────── */}
       <header className="sticky top-0 z-30 bg-black border-b border-white/10 px-5 py-4">
         <div className="flex items-center justify-between max-w-2xl mx-auto">
-          <a href="/"><Image src="/logo.png" alt="Nanawax" width={65} height={29} unoptimized className="invert" /></a>
+          <a href="/admin"><Image src="/logo.png" alt="Nanawax" width={65} height={29} unoptimized className="invert" /></a>
           <div className="flex items-center gap-3">
             <a
               href="/admin/events/new"

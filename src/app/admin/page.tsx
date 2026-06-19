@@ -59,7 +59,8 @@ export default async function AdminPage({
     .from('pre_registrations')
     .select('*, event:events(name)')
     .not('name', 'is', null)
-    .eq('status', 'pending')
+    .eq('status', 'registered')
+    .is('guest_id', null)
     .order('created_at', { ascending: false })
 
   const list: Guest[] = guests ?? []
