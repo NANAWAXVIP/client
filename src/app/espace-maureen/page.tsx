@@ -3,47 +3,41 @@ import { AdminLoginForm } from '@/components/client/AdminLoginForm'
 
 export default function EspaceMaureenPage() {
   return (
-    <main className="min-h-screen bg-nw-black flex flex-col">
+    <main className="min-h-screen bg-white flex flex-col">
 
-      {/* Hero sobre */}
-      <div className="relative flex-1 flex flex-col items-center justify-center px-6 py-16">
+      {/* Header noir */}
+      <header className="bg-black px-6 py-5 flex justify-center">
+        <a href="/">
+          <Image src="/logo.png" alt="Nanawax" width={90} height={40} unoptimized className="invert" />
+        </a>
+      </header>
 
-        {/* Pattern très subtil */}
-        <div className="absolute inset-0 pattern-wax opacity-[0.03]" />
+      {/* Contenu centré */}
+      <div className="flex-1 flex flex-col items-center justify-center px-6 py-16">
+        <div className="w-full max-w-sm mx-auto">
 
-        <div className="relative z-10 w-full max-w-sm mx-auto text-center space-y-10">
-
-          {/* Logo */}
-          <Image
-            src="/logo.png"
-            alt="Nanawax"
-            width={100}
-            height={44}
-            unoptimized
-            className="mx-auto invert"
-          />
-
-          {/* Titre */}
-          <div>
+          <div className="mb-10">
             <p className="text-[10px] font-display uppercase tracking-[0.3em] text-nw-camel mb-3">
               Espace privé
             </p>
-            <h1 className="font-display font-thin text-3xl text-nw-white">
-              Accès admin
+            <h1 className="font-display font-bold text-4xl text-black leading-tight">
+              Accès<br />Maureen.
             </h1>
           </div>
 
-          {/* Formulaire */}
+          <div className="h-px bg-nw-camel/30 mb-8" />
+
           <AdminLoginForm />
 
         </div>
       </div>
 
-      <footer className="relative z-10 text-center pb-8">
-        <p className="text-[10px] font-display uppercase tracking-[0.2em] text-nw-white/15">
+      <footer className="text-center pb-8">
+        <p className="text-[10px] font-display uppercase tracking-[0.2em] text-black/20">
           Nanawax · Accès réservé
         </p>
       </footer>
+
     </main>
   )
 }
