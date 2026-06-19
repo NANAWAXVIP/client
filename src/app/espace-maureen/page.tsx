@@ -20,8 +20,8 @@ export default function EspaceMaureenPage() {
             <p className="text-[10px] font-display uppercase tracking-[0.3em] text-nw-camel mb-3">
               Espace privé
             </p>
-            <h1 className="font-display font-bold text-4xl text-black leading-tight">
-              Accès<br />Maureen.
+            <h1 className="font-display font-bold text-4xl text-black">
+              Accès Nanawax.
             </h1>
           </div>
 
