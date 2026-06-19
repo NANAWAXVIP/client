@@ -54,7 +54,7 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
   const filters = [
     { key: 'all' as const,       label: 'Toutes',     count: guests.length },
     { key: 'confirmed' as const, label: 'Confirmées', count: confirmedCount },
-    { key: 'pending' as const,   label: 'En attente', count: pendingGuests.length },
+    { key: 'pending' as const,   label: 'En attente de réponse', count: pendingGuests.length },
     { key: 'declined' as const,  label: 'Déclinées',  count: guests.filter(g => g.status === 'declined').length },
   ]
 
@@ -128,7 +128,7 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
           </div>
           <div className="bg-nw-white/5 border border-nw-camel/20 p-6">
             <p className="text-5xl font-display font-thin text-nw-camel mb-2">{pendingGuests.length}</p>
-            <p className="text-[10px] font-display uppercase tracking-[0.2em] text-nw-camel/60">En attente</p>
+            <p className="text-[10px] font-display uppercase tracking-[0.2em] text-nw-camel/60">Sans réponse</p>
           </div>
         </div>
 

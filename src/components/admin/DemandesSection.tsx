@@ -38,7 +38,7 @@ export function DemandesSection({ demandes: initial, eventId }: Props) {
     <div className="bg-nw-white/4 border border-nw-camel/20 p-5 space-y-4">
       <div className="flex items-center justify-between">
         <p className="text-[10px] font-display uppercase tracking-[0.2em] text-nw-camel">
-          Demandes en attente
+          Demandes — invitation à envoyer
         </p>
         <span className="text-[10px] font-display text-nw-camel/60 bg-nw-camel/10 px-2 py-0.5">
           {demandes.length}
@@ -61,7 +61,7 @@ export function DemandesSection({ demandes: initial, eventId }: Props) {
               className="flex items-center gap-1.5 text-[10px] font-display uppercase tracking-[0.1em] bg-nw-camel text-nw-white px-3 py-2 hover:bg-[#a3744e] transition-colors disabled:opacity-50 shrink-0"
             >
               <UserPlus size={11} />
-              {inviting === d.id ? '…' : 'Inviter'}
+              {inviting === d.id ? '…' : "Envoyer l'invitation"}
             </button>
           </div>
         ))}
