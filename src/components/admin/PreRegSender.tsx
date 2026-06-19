@@ -77,7 +77,7 @@ export function PreRegSender({ eventId }: Props) {
         </button>
       </div>
 
-      <p className="text-[10px] text-nw-white/20 leading-relaxed">
+      <p className="text-[10px] text-nw-white leading-relaxed">
         Chaque lien est unique — une seule personne peut s'inscrire par lien.
       </p>
 
@@ -85,7 +85,7 @@ export function PreRegSender({ eventId }: Props) {
       {links.length > 0 && (
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <p className="text-[10px] font-display uppercase tracking-[0.15em] text-nw-white/30">
+            <p className="text-[10px] font-display uppercase tracking-[0.15em] text-nw-white">
               {links.length} lien{links.length > 1 ? 's' : ''} prêt{links.length > 1 ? 's' : ''}
             </p>
             <button
@@ -100,7 +100,7 @@ export function PreRegSender({ eventId }: Props) {
           <div className="space-y-2">
             {links.map(l => (
               <div key={l.id} className="flex items-center gap-3 bg-nw-white/4 border border-nw-white/8 px-4 py-3">
-                <span className="text-xs font-body text-nw-white/30 flex-1 min-w-0 truncate">
+                <span className="text-xs font-body text-nw-white flex-1 min-w-0 truncate">
                   {l.link}
                 </span>
                 <button
@@ -115,7 +115,7 @@ export function PreRegSender({ eventId }: Props) {
             ))}
           </div>
 
-          <p className="text-[10px] text-nw-white/15 leading-relaxed">
+          <p className="text-[10px] text-nw-white leading-relaxed">
             Envoyez chaque lien à une personne différente — WhatsApp, DM Instagram, email…
           </p>
         </div>

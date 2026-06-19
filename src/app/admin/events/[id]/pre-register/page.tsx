@@ -47,7 +47,7 @@ export default async function PreRegAdminPage({ params }: Props) {
           <h1 className="font-display font-thin text-3xl text-nw-white leading-tight">
             {event?.name ?? 'Événement'}
           </h1>
-          <p className="text-xs text-nw-white/30 mt-2 leading-relaxed">
+          <p className="text-xs text-nw-white mt-2 leading-relaxed">
             Chaque lien est personnel et à usage unique.<br />
             La personne découvre la marque avant de s'inscrire.
           </p>
@@ -67,7 +67,7 @@ export default async function PreRegAdminPage({ params }: Props) {
 
         {/* Générateur */}
         <div className="bg-nw-white/4 border border-nw-white/8 p-6">
-          <p className="text-[10px] font-display uppercase tracking-[0.2em] text-nw-white/30 mb-6">
+          <p className="text-[10px] font-display uppercase tracking-[0.2em] text-nw-white mb-6">
             Générer des liens
           </p>
           <PreRegSender eventId={id} />
@@ -76,7 +76,7 @@ export default async function PreRegAdminPage({ params }: Props) {
         {/* Historique */}
         {list.length > 0 && (
           <div>
-            <p className="text-[10px] font-display uppercase tracking-[0.2em] text-nw-white/30 mb-4">
+            <p className="text-[10px] font-display uppercase tracking-[0.2em] text-nw-white mb-4">
               Historique · {list.length}
             </p>
             <div className="divide-y divide-nw-white/6">
@@ -91,12 +91,12 @@ export default async function PreRegAdminPage({ params }: Props) {
                     <div className="flex-1 min-w-0">
                       {guest
                         ? <p className="text-sm font-display font-light text-nw-white">{guest.name}</p>
-                        : <p className="text-sm font-display font-light text-nw-white/25">Lien #{p.id.slice(0, 6)}</p>}
+                        : <p className="text-sm font-display font-light text-nw-white">Lien #{p.id.slice(0, 6)}</p>}
                       {guest?.email && (
-                        <p className="text-xs text-nw-white/25 truncate mt-0.5">{guest.email}</p>
+                        <p className="text-xs text-nw-white truncate mt-0.5">{guest.email}</p>
                       )}
                     </div>
-                    <span className="text-[10px] text-nw-white/20 shrink-0">{date}</span>
+                    <span className="text-[10px] text-nw-white shrink-0">{date}</span>
                     <span className={`text-[9px] font-display uppercase tracking-[0.1em] px-2 py-1 shrink-0 ${
                       p.status === 'registered'
                         ? 'bg-nw-sage/15 text-nw-sage'
