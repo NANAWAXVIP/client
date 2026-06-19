@@ -45,12 +45,12 @@ export default function NewEventPage() {
     <div className="min-h-screen bg-black">
 
       {/* Header */}
-      <header className="sticky top-0 z-20 bg-nw-black/95 backdrop-blur-sm border-b border-nw-white/8 px-5 py-4">
+      <header className="sticky top-0 z-20 bg-white border-b border-black/8 px-5 py-4">
         <div className="flex items-center justify-between max-w-xl mx-auto">
-          <a href="/admin" className="text-nw-white/40 hover:text-nw-white transition-colors">
+          <a href="/admin" className="text-black/40 hover:text-black transition-colors">
             <ArrowLeft size={18} strokeWidth={1.5} />
           </a>
-          <Image src="/logo.png" alt="Nanawax" width={65} height={29} unoptimized className="invert" />
+          <Image src="/logo.png" alt="Nanawax" width={65} height={29} unoptimized />
           <div className="w-6" />
         </div>
       </header>
