@@ -1,14 +1,11 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
 
 export async function GET() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL!
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  const supabase = createClient(url, key)
-  const { data, error } = await supabase.from('events').select('id, name')
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? ''
   return NextResponse.json({
-    url_prefix: url?.slice(0, 35),
-    data,
-    error: error?.message ?? null,
+    key_length: key.length,
+    key_start: key.slice(0, 20),
+    key_end: key.slice(-20),
+    expected_length: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9yendpenJ6emJqbnRieHVubHZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE4NjM2MDcsImV4cCI6MjA5NzQzOTYwN30.f_Zoih-CRHDcfPlZWt8cFb80mHEX26Z3H0ouhAF448s'.length,
   })
 }
