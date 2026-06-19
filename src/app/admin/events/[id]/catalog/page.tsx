@@ -20,14 +20,14 @@ export default async function CatalogAdminPage({ params }: Props) {
   const list = items ?? []
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-white">
 
-      <header className="sticky top-0 z-20 bg-white border-b border-black/8 px-5 py-4">
+      <header className="sticky top-0 z-20 bg-black border-b border-white/10 px-5 py-4">
         <div className="flex items-center justify-between max-w-2xl mx-auto">
-          <Link href="/admin" className="text-black/40 hover:text-black transition-colors">
+          <Link href="/admin" className="text-white/50 hover:text-white transition-colors">
             <ArrowLeft size={18} strokeWidth={1.5} />
           </Link>
-          <Image src="/logo.png" alt="Nanawax" width={65} height={29} unoptimized />
+          <Image src="/logo.png" alt="Nanawax" width={65} height={29} unoptimized className="invert" />
           <div className="w-6" />
         </div>
       </header>
@@ -37,10 +37,10 @@ export default async function CatalogAdminPage({ params }: Props) {
           <p className="text-[10px] font-display uppercase tracking-[0.3em] text-nw-camel mb-2">
             Catalogue privé
           </p>
-          <h1 className="font-display font-thin text-3xl text-nw-white leading-tight">
+          <h1 className="font-display font-thin text-3xl text-black leading-tight">
             {event?.name ?? '—'}
           </h1>
-          <p className="text-xs text-nw-white/30 mt-1">
+          <p className="text-xs text-black/50 mt-1">
             {list.length} pièce{list.length !== 1 ? 's' : ''} au catalogue
           </p>
         </div>

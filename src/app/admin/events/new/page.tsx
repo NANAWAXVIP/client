@@ -7,14 +7,14 @@ import { ArrowLeft, Plus, X } from 'lucide-react'
 
 export default function NewEventPage() {
   const router = useRouter()
-  const [loading, setLoading] = useState(false)
-  const [name, setName] = useState('')
-  const [date, setDate] = useState('')
-  const [time, setTime] = useState('15:00')
+  const [loading,  setLoading]  = useState(false)
+  const [name,     setName]     = useState('')
+  const [date,     setDate]     = useState('')
+  const [time,     setTime]     = useState('15:00')
   const [location, setLocation] = useState('')
   const [capacity, setCapacity] = useState('30')
-  const [slots, setSlots] = useState<string[]>([])
-  const [newSlot, setNewSlot] = useState('')
+  const [slots,    setSlots]    = useState<string[]>([])
+  const [newSlot,  setNewSlot]  = useState('')
 
   function addSlot() {
     const s = newSlot.trim()
@@ -38,19 +38,19 @@ export default function NewEventPage() {
     }
   }
 
-  const inputClass = "w-full bg-[#2C2118] border border-[#5C4A38] text-nw-white px-4 py-3.5 text-sm font-body outline-none focus:border-nw-camel transition-colors placeholder:text-nw-white/30"
-  const labelClass = "block text-[10px] font-display uppercase tracking-[0.2em] text-nw-white/40 mb-2"
+  const inputClass = "w-full border border-black/20 bg-white text-black px-4 py-3.5 text-sm font-body outline-none focus:border-nw-camel transition-colors placeholder:text-black/25"
+  const labelClass = "block text-[10px] font-display uppercase tracking-[0.2em] text-black mb-2"
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-white">
 
-      {/* Header */}
-      <header className="sticky top-0 z-20 bg-white border-b border-black/8 px-5 py-4">
+      {/* Header noir */}
+      <header className="sticky top-0 z-20 bg-black border-b border-white/10 px-5 py-4">
         <div className="flex items-center justify-between max-w-xl mx-auto">
-          <a href="/admin" className="text-black/40 hover:text-black transition-colors">
+          <a href="/admin" className="text-white/50 hover:text-white transition-colors">
             <ArrowLeft size={18} strokeWidth={1.5} />
           </a>
-          <Image src="/logo.png" alt="Nanawax" width={65} height={29} unoptimized />
+          <Image src="/logo.png" alt="Nanawax" width={65} height={29} unoptimized className="invert" />
           <div className="w-6" />
         </div>
       </header>
@@ -60,19 +60,17 @@ export default function NewEventPage() {
         {/* Titre */}
         <div className="mb-10">
           <p className="text-[10px] font-display uppercase tracking-[0.3em] text-nw-camel mb-3">Nouvel événement</p>
-          <h1 className="font-display font-thin text-4xl text-nw-white">Créer un événement</h1>
+          <h1 className="font-display font-thin text-4xl text-black">Créer un événement</h1>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
 
-          {/* Nom */}
           <div>
             <label className={labelClass}>Nom de l'événement</label>
             <input type="text" required value={name} onChange={e => setName(e.target.value)}
               placeholder="Ex: Lancement Collection, Vente Privée Été, Soirée VIP…" className={inputClass} />
           </div>
 
-          {/* Date + heure */}
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className={labelClass}>Date</label>
@@ -84,30 +82,27 @@ export default function NewEventPage() {
             </div>
           </div>
 
-          {/* Lieu */}
           <div>
             <label className={labelClass}>Lieu</label>
             <input type="text" required value={location} onChange={e => setLocation(e.target.value)}
               placeholder="Showroom Nanawax — 12 rue des Arts, Paris 11e" className={inputClass} />
           </div>
 
-          {/* Capacité */}
           <div>
             <label className={labelClass}>Nombre de places</label>
             <input type="number" required min="1" max="500" value={capacity}
               onChange={e => setCapacity(e.target.value)} className={inputClass} />
           </div>
 
-          {/* Créneaux */}
           <div>
             <label className={labelClass}>Créneaux horaires — optionnel</label>
             {slots.length > 0 && (
               <div className="space-y-2 mb-2">
                 {slots.map(slot => (
-                  <div key={slot} className="flex items-center justify-between bg-[#2C2118] border border-[#5C4A38] px-4 py-2.5">
-                    <span className="text-sm font-display font-light text-nw-white">{slot}</span>
+                  <div key={slot} className="flex items-center justify-between border border-black/15 px-4 py-2.5">
+                    <span className="text-sm font-display font-light text-black">{slot}</span>
                     <button type="button" onClick={() => setSlots(prev => prev.filter(s => s !== slot))}>
-                      <X size={13} className="text-nw-white/30 hover:text-nw-white/60" />
+                      <X size={13} className="text-black/30 hover:text-black/60" />
                     </button>
                   </div>
                 ))}
@@ -119,25 +114,23 @@ export default function NewEventPage() {
                 placeholder="ex: 15h00 – 15h30"
                 className={`flex-1 ${inputClass}`} />
               <button type="button" onClick={addSlot}
-                className="bg-[#2C2118] border border-[#5C4A38] px-4 hover:border-nw-camel transition-colors">
-                <Plus size={15} className="text-nw-white/50" />
+                className="border border-black/20 px-4 hover:border-nw-camel transition-colors">
+                <Plus size={15} className="text-black/40" />
               </button>
             </div>
           </div>
 
-          {/* Séparateur */}
-          <div className="h-px bg-nw-white/8" />
+          <div className="h-px bg-black/8" />
 
-          {/* Submit */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-nw-camel text-nw-white font-display font-light text-sm uppercase tracking-[0.15em] py-5 hover:bg-[#a3744e] transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+            className="w-full bg-black text-white font-display font-light text-sm uppercase tracking-[0.15em] py-5 hover:bg-nw-camel transition-colors disabled:opacity-50"
           >
             {loading ? 'Création en cours…' : "Créer l'événement"}
           </button>
 
-          <a href="/admin" className="block text-center text-[11px] font-display uppercase tracking-[0.12em] text-nw-white/25 hover:text-nw-white/50 transition-colors">
+          <a href="/admin" className="block text-center text-[11px] font-display uppercase tracking-[0.12em] text-black/30 hover:text-black transition-colors">
             Annuler
           </a>
         </form>
