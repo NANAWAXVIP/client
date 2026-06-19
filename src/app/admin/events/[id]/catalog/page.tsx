@@ -1,40 +1,53 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
-import { NanawaxLogo } from '@/components/NanawaxLogo'
+import { createClient } from '@/lib/supabase/server'
 import { CatalogManager } from '@/components/admin/CatalogManager'
-import { MOCK_CATALOG, MOCK_EVENT } from '@/lib/mock-data'
 
-interface Props {
-  params: Promise<{ id: string }>
-}
+export const revalidate = 0
+
+interface Props { params: Promise<{ id: string }> }
 
 export default async function CatalogAdminPage({ params }: Props) {
   const { id } = await params
+  const supabase = await createClient()
 
-  // In production: query Supabase
-  const items = MOCK_CATALOG.filter(i => i.event_id === id || id === 'evt-1')
+  const [{ data: event }, { data: items }] = await Promise.all([
+    supabase.from('events').select('name').eq('id', id).single(),
+    supabase.from('catalog_items').select('*').eq('event_id', id).order('created_at', { ascending: false }),
+  ])
+
+  const list = items ?? []
 
   return (
-    <div className="min-h-screen bg-nw-white">
-      <div className="border-b border-nw-black/8 px-5 py-4 flex items-center justify-between">
-        <Link href="/admin" className="text-nw-black/40 hover:text-nw-black transition-colors">
-          <ArrowLeft size={16} strokeWidth={1.5} />
-        </Link>
-        <NanawaxLogo size="sm" />
-        <div className="w-8" />
-      </div>
+    <div className="min-h-screen bg-nw-black">
 
-      <div className="px-5 pt-6 pb-16 max-w-md mx-auto">
-        <div className="mb-6">
-          <p className="text-[10px] font-display uppercase tracking-[0.2em] text-nw-camel mb-1">Catalogue</p>
-          <h1 className="font-display font-light text-xl">{MOCK_EVENT.name}</h1>
-          <p className="text-xs text-nw-black/40 mt-1">
-            {items.length} pièce{items.length > 1 ? 's' : ''} au catalogue
+      <header className="sticky top-0 z-20 bg-nw-black/95 backdrop-blur-sm border-b border-nw-white/8 px-5 py-4">
+        <div className="flex items-center justify-between max-w-2xl mx-auto">
+          <Link href="/admin" className="text-nw-white/40 hover:text-nw-white transition-colors">
+            <ArrowLeft size={18} strokeWidth={1.5} />
+          </Link>
+          <Image src="/logo.png" alt="Nanawax" width={65} height={29} unoptimized className="invert" />
+          <div className="w-6" />
+        </div>
+      </header>
+
+      <div className="px-5 pt-8 pb-24 max-w-2xl mx-auto">
+        <div className="mb-8">
+          <p className="text-[10px] font-display uppercase tracking-[0.3em] text-nw-camel mb-2">
+            Catalogue privé
+          </p>
+          <h1 className="font-display font-thin text-3xl text-nw-white leading-tight">
+            {event?.name ?? '—'}
+          </h1>
+          <p className="text-xs text-nw-white/30 mt-1">
+            {list.length} pièce{list.length !== 1 ? 's' : ''} au catalogue
           </p>
         </div>
 
-        <CatalogManager eventId={id} items={items} />
+        <CatalogManager eventId={id} items={list} />
       </div>
+
     </div>
   )
 }

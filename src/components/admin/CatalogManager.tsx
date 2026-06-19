@@ -2,8 +2,7 @@
 
 import { useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import { Plus, Trash2, Upload } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
+import { Plus, Trash2, Upload, X } from 'lucide-react'
 import { formatPrice } from '@/lib/utils'
 import type { CatalogItem } from '@/lib/types'
 import Image from 'next/image'
@@ -13,16 +12,21 @@ interface Props {
   items: CatalogItem[]
 }
 
+const inputClass = 'w-full bg-[#2C2118] border border-[#5C4A38] text-nw-white px-4 py-3.5 text-sm font-body outline-none focus:border-nw-camel transition-colors placeholder:text-nw-white/30'
+const labelClass = 'block text-[10px] font-display uppercase tracking-[0.2em] text-nw-white/40 mb-2'
+
 export function CatalogManager({ eventId, items: initialItems }: Props) {
-  const router = useRouter()
-  const [items, setItems] = useState(initialItems)
-  const [adding, setAdding] = useState(false)
-  const [name, setName] = useState('')
-  const [price, setPrice] = useState('')
-  const [imageFile, setImageFile] = useState<File | null>(null)
-  const [imagePreview, setImagePreview] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
+  const router  = useRouter()
   const fileRef = useRef<HTMLInputElement>(null)
+
+  const [items,        setItems]        = useState(initialItems)
+  const [adding,       setAdding]       = useState(false)
+  const [name,         setName]         = useState('')
+  const [price,        setPrice]        = useState('')
+  const [imageFile,    setImageFile]    = useState<File | null>(null)
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
+  const [loading,      setLoading]      = useState(false)
+  const [deleting,     setDeleting]     = useState<string | null>(null)
 
   function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
@@ -31,24 +35,23 @@ export function CatalogManager({ eventId, items: initialItems }: Props) {
     setImagePreview(URL.createObjectURL(file))
   }
 
+  function resetForm() {
+    setName(''); setPrice(''); setImageFile(null); setImagePreview(null); setAdding(false)
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
     try {
-      const formData = new FormData()
-      formData.set('name', name)
-      formData.set('price', price)
-      if (imageFile) formData.set('image', imageFile)
-
-      const res = await fetch(`/api/events/${eventId}/catalog`, {
-        method: 'POST',
-        body: formData,
-      })
+      const fd = new FormData()
+      fd.set('name', name)
+      fd.set('price', price)
+      if (imageFile) fd.set('image', imageFile)
+      const res = await fetch(`/api/events/${eventId}/catalog`, { method: 'POST', body: fd })
       if (res.ok) {
         const newItem = await res.json()
-        setItems(prev => [...prev, newItem])
-        setName(''); setPrice(''); setImageFile(null); setImagePreview(null)
-        setAdding(false)
+        setItems(prev => [newItem, ...prev])
+        resetForm()
         router.refresh()
       }
     } finally {
@@ -57,92 +60,124 @@ export function CatalogManager({ eventId, items: initialItems }: Props) {
   }
 
   async function handleDelete(id: string) {
+    setDeleting(id)
     setItems(prev => prev.filter(i => i.id !== id))
     await fetch(`/api/events/${eventId}/catalog/${id}`, { method: 'DELETE' })
+    setDeleting(null)
     router.refresh()
   }
 
   return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-2 gap-3">
-        {items.map(item => (
-          <div key={item.id} className="group relative">
-            <div className="aspect-[4/5] bg-nw-black/5 relative overflow-hidden">
-              {item.image_url ? (
-                <Image src={item.image_url} alt={item.name} fill className="object-cover" />
-              ) : (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-[9px] font-display uppercase tracking-[0.15em] text-nw-black/20">Photo</span>
-                </div>
-              )}
-              <button
-                onClick={() => handleDelete(item.id)}
-                className="absolute top-2 right-2 w-7 h-7 bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-              >
-                <Trash2 size={12} className="text-red-500" />
-              </button>
-            </div>
-            <div className="pt-2 pb-1">
-              <p className="text-xs font-display font-light truncate">{item.name}</p>
-              <p className="text-xs text-nw-camel">{formatPrice(item.price)}</p>
-            </div>
-          </div>
-        ))}
+    <>
+      {/* Bouton ajouter */}
+      <button
+        onClick={() => setAdding(true)}
+        className="w-full flex items-center justify-center gap-2 border border-dashed border-nw-camel/30 py-4 text-[11px] font-display uppercase tracking-[0.15em] text-nw-camel/60 hover:border-nw-camel hover:text-nw-camel transition-colors mb-8"
+      >
+        <Plus size={14} />
+        Ajouter une pièce
+      </button>
 
-        {/* Add card */}
-        <button
-          onClick={() => setAdding(true)}
-          className="aspect-[4/5] border border-dashed border-nw-black/15 flex flex-col items-center justify-center gap-2 hover:border-nw-camel/50 transition-colors group"
-        >
-          <Plus size={20} className="text-nw-black/25 group-hover:text-nw-camel/60 transition-colors" />
-          <span className="text-[9px] font-display uppercase tracking-[0.15em] text-nw-black/30 group-hover:text-nw-camel/60 transition-colors">
-            Ajouter
-          </span>
-        </button>
-      </div>
+      {/* Grille */}
+      {items.length === 0 ? (
+        <div className="text-center py-20 border border-nw-white/6">
+          <p className="text-[10px] font-display uppercase tracking-[0.2em] text-nw-white/20">
+            Aucune pièce au catalogue
+          </p>
+          <p className="text-xs text-nw-white/15 mt-2">
+            Ajoutez vos premières créations ci-dessus.
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 gap-3">
+          {items.map(item => (
+            <div key={item.id} className="group">
+              {/* Image */}
+              <div className="aspect-[4/5] bg-nw-white/4 border border-nw-white/8 relative overflow-hidden">
+                {item.image_url ? (
+                  <Image src={item.image_url} alt={item.name} fill className="object-cover" />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-[9px] font-display uppercase tracking-[0.15em] text-nw-white/15">
+                      Photo
+                    </span>
+                  </div>
+                )}
+                {/* Overlay suppression */}
+                <button
+                  onClick={() => handleDelete(item.id)}
+                  disabled={deleting === item.id}
+                  className="absolute top-2 right-2 w-7 h-7 bg-nw-black/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
+                >
+                  <Trash2 size={11} className="text-nw-white" />
+                </button>
+              </div>
+              {/* Infos */}
+              <div className="pt-2.5 pb-1 border-b border-nw-white/6">
+                <p className="text-xs font-display font-light text-nw-white truncate">{item.name}</p>
+                <p className="text-xs text-nw-camel mt-0.5">{formatPrice(item.price)}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
 
-      {/* Add form */}
+      {/* Modal ajout */}
       {adding && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center">
-          <div className="absolute inset-0 bg-nw-black/40 backdrop-blur-sm" onClick={() => setAdding(false)} />
-          <div className="relative bg-nw-white w-full sm:max-w-md sm:mx-4 p-6 sm:p-8">
-            <h2 className="font-display font-light text-lg tracking-wide mb-6">Ajouter une pièce</h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Image upload */}
+          <div className="absolute inset-0 bg-nw-black/70 backdrop-blur-sm" onClick={resetForm} />
+
+          <div className="relative bg-[#1A1A1A] border border-nw-white/10 w-full sm:max-w-md sm:mx-4">
+            {/* Header modal */}
+            <div className="flex items-center justify-between px-6 py-5 border-b border-nw-white/8">
+              <div>
+                <p className="text-[10px] font-display uppercase tracking-[0.2em] text-nw-camel mb-0.5">
+                  Catalogue
+                </p>
+                <h2 className="font-display font-thin text-xl text-nw-white">
+                  Nouvelle pièce
+                </h2>
+              </div>
+              <button onClick={resetForm} className="text-nw-white/30 hover:text-nw-white transition-colors">
+                <X size={18} />
+              </button>
+            </div>
+
+            <form onSubmit={handleSubmit} className="px-6 py-6 space-y-5">
+              {/* Zone image */}
               <div
-                className="aspect-video bg-nw-black/4 flex flex-col items-center justify-center cursor-pointer border border-dashed border-nw-black/12 hover:border-nw-camel/40 transition-colors relative overflow-hidden"
+                className="aspect-video bg-[#2C2118] border border-[#5C4A38] flex flex-col items-center justify-center cursor-pointer hover:border-nw-camel/60 transition-colors relative overflow-hidden"
                 onClick={() => fileRef.current?.click()}
               >
                 {imagePreview ? (
                   <Image src={imagePreview} alt="" fill className="object-cover" />
                 ) : (
-                  <>
-                    <Upload size={20} className="text-nw-black/25 mb-2" />
-                    <span className="text-[10px] font-display uppercase tracking-[0.12em] text-nw-black/30">
+                  <div className="text-center">
+                    <Upload size={20} className="text-nw-white/20 mx-auto mb-2" />
+                    <span className="text-[10px] font-display uppercase tracking-[0.12em] text-nw-white/25">
                       Ajouter une photo
                     </span>
-                  </>
+                  </div>
                 )}
                 <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleImageChange} />
               </div>
 
+              {/* Nom */}
               <div>
-                <label className="block text-[10px] font-display uppercase tracking-[0.15em] text-nw-black/50 mb-2">
-                  Nom de la pièce
-                </label>
+                <label className={labelClass}>Nom de la pièce</label>
                 <input
                   type="text"
                   required
                   value={name}
                   onChange={e => setName(e.target.value)}
                   placeholder="Robe Kente Fluid"
-                  className="w-full border border-nw-black/15 bg-transparent px-4 py-3 text-sm outline-none focus:border-nw-camel transition-colors placeholder:text-nw-black/25"
+                  className={inputClass}
                 />
               </div>
+
+              {/* Prix */}
               <div>
-                <label className="block text-[10px] font-display uppercase tracking-[0.15em] text-nw-black/50 mb-2">
-                  Prix (€)
-                </label>
+                <label className={labelClass}>Prix (€)</label>
                 <input
                   type="number"
                   required
@@ -151,25 +186,31 @@ export function CatalogManager({ eventId, items: initialItems }: Props) {
                   value={price}
                   onChange={e => setPrice(e.target.value)}
                   placeholder="185"
-                  className="w-full border border-nw-black/15 bg-transparent px-4 py-3 text-sm outline-none focus:border-nw-camel transition-colors placeholder:text-nw-black/25"
+                  className={inputClass}
                 />
               </div>
-              <div className="flex gap-3 pt-2">
+
+              {/* Actions */}
+              <div className="flex gap-3 pt-1">
                 <button
                   type="button"
-                  onClick={() => setAdding(false)}
-                  className="flex-1 text-[11px] font-display uppercase tracking-[0.1em] text-nw-black/40 hover:text-nw-black/70 transition-colors py-4 border border-nw-black/10"
+                  onClick={resetForm}
+                  className="flex-1 text-[11px] font-display uppercase tracking-[0.1em] text-nw-white/30 hover:text-nw-white/60 transition-colors py-4 border border-nw-white/10"
                 >
                   Annuler
                 </button>
-                <Button type="submit" variant="secondary" size="md" className="flex-1" loading={loading}>
-                  Ajouter
-                </Button>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="flex-1 bg-nw-camel text-nw-white text-[11px] font-display uppercase tracking-[0.1em] py-4 hover:bg-[#a3744e] transition-colors disabled:opacity-50"
+                >
+                  {loading ? 'Ajout…' : 'Ajouter'}
+                </button>
               </div>
             </form>
           </div>
         </div>
       )}
-    </div>
+    </>
   )
 }
