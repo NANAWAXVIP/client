@@ -2,33 +2,38 @@
 
 import { useState, useEffect } from 'react'
 
-const phrases = [
+const phrasesWithToken = [
+  { text: 'Votre invitation personnelle est prête.', highlight: false },
+  { text: 'Cliquez sur le bouton ci-dessous.', highlight: true },
+]
+
+const phrasesWithoutToken = [
   { text: 'Créations wax & événements exclusifs.', highlight: false },
-  { text: 'Pour rejoindre la communauté VIP,', highlight: false },
-  { text: 'cliquez sur le bouton ci-dessous.', highlight: true },
+  { text: 'Sur invitation uniquement.', highlight: true },
 ]
 
 const FADE_MS = 900
 const HOLD_MS = 2800
 
-export function HeroRotatingText() {
-  const [index, setIndex] = useState(0)
+interface Props { hasToken: boolean }
+
+export function HeroRotatingText({ hasToken }: Props) {
+  const phrases = hasToken ? phrasesWithToken : phrasesWithoutToken
+  const [index,   setIndex]   = useState(0)
   const [visible, setVisible] = useState(false)
 
-  // Initial fade-in
   useEffect(() => {
+    setIndex(0)
     const t = setTimeout(() => setVisible(true), 300)
     return () => clearTimeout(t)
-  }, [])
+  }, [hasToken])
 
-  // Hold then fade-out
   useEffect(() => {
     if (!visible) return
     const t = setTimeout(() => setVisible(false), HOLD_MS)
     return () => clearTimeout(t)
   }, [visible, index])
 
-  // After fade-out completes, advance to next phrase
   useEffect(() => {
     if (visible) return
     const t = setTimeout(() => {
@@ -36,7 +41,7 @@ export function HeroRotatingText() {
       setVisible(true)
     }, FADE_MS + 100)
     return () => clearTimeout(t)
-  }, [visible])
+  }, [visible, phrases.length])
 
   const phrase = phrases[index]
 
@@ -49,9 +54,7 @@ export function HeroRotatingText() {
           textShadow: '0 1px 16px rgba(0,0,0,1), 0 2px 6px rgba(0,0,0,0.8)',
         }}
         className={`text-sm font-display tracking-wide ${
-          phrase.highlight
-            ? 'font-semibold text-nw-camel'
-            : 'font-light text-white/95'
+          phrase.highlight ? 'font-semibold text-nw-camel' : 'font-light text-white/95'
         }`}
       >
         {phrase.text}

@@ -30,6 +30,6 @@ export async function POST(req: NextRequest, { params }: Params) {
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
-  const links = (data ?? []).map(r => ({ ...r, link: `${baseUrl}/rejoindre/${r.token}` }))
+  const links = (data ?? []).map(r => ({ ...r, link: `${baseUrl}/?token=${r.token}` }))
   return NextResponse.json(links, { status: 201 })
 }
