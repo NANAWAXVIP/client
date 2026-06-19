@@ -57,7 +57,7 @@ export default async function AdminPage({
   // Demandes reçues via le formulaire public (nom renseigné, pas encore invitées)
   const { data: demandesRaw } = await supabase
     .from('pre_registrations')
-    .select('*')
+    .select('*, event:events(name)')
     .not('name', 'is', null)
     .eq('status', 'pending')
     .order('created_at', { ascending: false })

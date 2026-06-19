@@ -180,7 +180,7 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
         </div>
 
         {/* ── DEMANDES EN ATTENTE ───────────────────────────── */}
-        <DemandesSection demandes={demandes} eventId={event.id} />
+        <DemandesSection demandes={demandes} eventId={event.id} eventName={event.name} />
 
         {/* ── LISTE INVITÉES ─────────────────────────────────── */}
         <div>
