@@ -120,24 +120,18 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
           <p className="text-xs text-nw-white/25 mt-0.5">{event.location}</p>
         </div>
 
-        {/* ── STATS ─────────────────────────────────────────── */}
-        <div className="grid grid-cols-2 gap-3">
-          <div className="bg-nw-white/5 border border-nw-sage/20 p-6">
-            <p className="text-5xl font-display font-thin text-nw-sage mb-2">{confirmedCount}</p>
-            <p className="text-[10px] font-display uppercase tracking-[0.2em] text-nw-sage/60">Confirmées</p>
-          </div>
-          <div className="bg-nw-white/5 border border-nw-camel/20 p-6">
-            <p className="text-5xl font-display font-thin text-nw-camel mb-2">{pendingGuests.length}</p>
-            <p className="text-[10px] font-display uppercase tracking-[0.2em] text-nw-camel/60">Sans réponse</p>
-          </div>
-        </div>
-
         {/* ── PLACES ─────────────────────────────────────────── */}
         <div className="bg-nw-white/5 border border-nw-white/8 p-6">
           <p className="text-[10px] font-display uppercase tracking-[0.2em] text-nw-white/30 mb-6">
             Gestion des places
           </p>
-          <CapacitySlider eventId={event.id} initialCapacity={event.capacity} confirmed={event.confirmed_count} />
+          <CapacitySlider
+            eventId={event.id}
+            initialCapacity={event.capacity}
+            confirmed={event.confirmed_count}
+            pending={event.pending_count}
+            declined={event.declined_count}
+          />
         </div>
 
         {/* ── ACTIONS ───────────────────────────────────────── */}
