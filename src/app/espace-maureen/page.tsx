@@ -17,8 +17,8 @@ export default function EspaceMaureenPage() {
           <Image
             src="/logo.png"
             alt="Nanawax"
-            width={160}
-            height={70}
+            width={100}
+            height={44}
             unoptimized
             className="mx-auto invert"
           />

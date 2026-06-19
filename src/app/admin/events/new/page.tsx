@@ -50,7 +50,7 @@ export default function NewEventPage() {
           <a href="/admin" className="text-nw-white/40 hover:text-nw-white transition-colors">
             <ArrowLeft size={18} strokeWidth={1.5} />
           </a>
-          <Image src="/logo.png" alt="Nanawax" width={100} height={44} unoptimized className="invert" />
+          <Image src="/logo.png" alt="Nanawax" width={65} height={29} unoptimized className="invert" />
           <div className="w-6" />
         </div>
       </header>

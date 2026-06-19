@@ -35,7 +35,7 @@ export async function GET(_req: NextRequest, { params }: Params) {
 
 export async function POST(req: NextRequest, { params }: Params) {
   const { token } = await params
-  const { name, email } = await req.json()
+  const { name, email, phone } = await req.json()
 
   if (!name?.trim() || !email?.trim()) {
     return NextResponse.json({ error: 'Prénom, nom et email requis.' }, { status: 400 })
@@ -57,7 +57,7 @@ export async function POST(req: NextRequest, { params }: Params) {
   // Créer l'invitée
   const { data: guest, error } = await supabase
     .from('guests')
-    .insert({ event_id: preReg.event_id, name: name.trim(), email: email.trim() })
+    .insert({ event_id: preReg.event_id, name: name.trim(), email: email.trim(), phone: phone?.trim() || null })
     .select()
     .single()
 

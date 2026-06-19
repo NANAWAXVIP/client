@@ -36,6 +36,16 @@ body {
   background-size: 80px 40px;
 }
 
+/* Fade-in from below — hero text entrance */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.anim-fadeup {
+  opacity: 0;
+  animation: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
 /* Camel variant of the pattern */
 .pattern-wax-camel {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40'%3E%3Cpolyline points='0,20 20,0 40,20 60,0 80,20' fill='none' stroke='%23B8835A' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpolyline points='0,40 20,20 40,40 60,20 80,40' fill='none' stroke='%23B8835A' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");

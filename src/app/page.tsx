@@ -1,5 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { HeroRotatingText } from '@/components/client/HeroRotatingText'
+import { WaitlistButton } from '@/components/client/WaitlistButton'
 
 export default function LandingPage() {
   return (
@@ -18,8 +20,10 @@ export default function LandingPage() {
             priority
             quality={90}
           />
-          {/* Gradient sombre en haut pour le logo */}
-          <div className="absolute inset-0 bg-gradient-to-b from-nw-black/70 via-transparent to-nw-black/80" />
+          {/* Gradient global haut → bas */}
+          <div className="absolute inset-0 bg-gradient-to-b from-nw-black/65 via-transparent to-nw-black/40" />
+          {/* Gradient concentré sur la zone texte en bas */}
+          <div className="absolute bottom-0 left-0 right-0 h-[55%] bg-gradient-to-t from-nw-black/80 via-nw-black/40 to-transparent" />
         </div>
 
         {/* Logo centré en haut */}
@@ -27,8 +31,8 @@ export default function LandingPage() {
           <Image
             src="/logo.png"
             alt="Nanawax"
-            width={180}
-            height={80}
+            width={110}
+            height={50}
             unoptimized
             className="invert"
           />
@@ -36,20 +40,16 @@ export default function LandingPage() {
 
         {/* Texte bas du hero */}
         <div className="relative z-10 mt-auto px-6 pb-14 text-center">
-          <p className="text-[10px] font-display font-light tracking-[0.4em] uppercase text-nw-camel mb-5">
-            Ventes privées · Sur invitation
-          </p>
           <h1 className="font-display font-thin text-nw-white leading-[0.92] mb-8" style={{ fontSize: 'clamp(52px, 14vw, 120px)' }}>
             Wax.<br />Luxe.<br />Privé.
           </h1>
-          <div className="w-8 h-px bg-nw-camel mx-auto mb-8" />
-          <p className="text-sm font-display font-light text-nw-white/60 tracking-wide max-w-xs mx-auto leading-relaxed mb-10">
-            Prêt-à-porter wax & afro premium.<br />
-            Accès réservé aux clientes VIP.
-          </p>
+          <div className="anim-fadeup w-8 h-px bg-nw-camel mx-auto mb-8" style={{ animationDelay: '0.1s' }} />
+          <HeroRotatingText />
+          <p className="anim-fadeup text-base text-nw-camel mb-8" style={{ animationDelay: '0.4s' }}>↓</p>
           <Link
             href="#acces"
-            className="inline-block bg-nw-camel text-nw-white text-[11px] font-display font-light uppercase tracking-[0.15em] px-8 py-4 hover:bg-[#a3744e] transition-colors"
+            className="anim-fadeup inline-block bg-nw-camel text-nw-white text-sm font-display font-bold uppercase tracking-[0.18em] px-10 py-5 hover:bg-[#a3744e] transition-colors shadow-lg shadow-nw-camel/30"
+            style={{ animationDelay: '0.6s' }}
           >
             Rejoindre la liste VIP
           </Link>
@@ -67,18 +67,18 @@ export default function LandingPage() {
             {[
               {
                 n: '01',
-                title: 'Montrez votre intérêt',
-                desc: 'Envoyez un message à Nanawax sur les réseaux sociaux pour rejoindre la prochaine vente privée.',
+                title: 'Rejoignez la liste VIP',
+                desc: 'Cliquez sur « Rejoindre la liste VIP » pour vous inscrire et intégrer la communauté Nanawax.',
               },
               {
                 n: '02',
-                title: 'Recevez votre lien personnel',
-                desc: 'Un lien unique et non-partageable vous est envoyé. Il vous permet de vous inscrire en quelques secondes.',
+                title: 'Recevez votre invitation',
+                desc: 'Un lien unique et personnel vous est envoyé pour chaque événement : ventes privées, soirées de lancement, rencontres autour de la marque…',
               },
               {
                 n: '03',
-                title: 'Accédez à la vente privée',
-                desc: 'Date, lieu et horaire vous sont communiqués après confirmation. Catalogue exclusif et cadeaux VIP vous attendent.',
+                title: "Vivez l'expérience",
+                desc: 'Date, lieu et programme vous sont communiqués après confirmation. Chaque événement est une expérience unique pensée pour vous.',
               },
             ].map(step => (
               <div key={step.n} className="flex gap-8 items-start">
@@ -101,10 +101,10 @@ export default function LandingPage() {
           {/* Photo */}
           <div className="relative md:w-1/2 h-[60vw] md:h-auto">
             <Image
-              src="/hero.jpg"
+              src="/photo2.jpg"
               alt="Nanawax collection"
               fill
-              className="object-cover object-center"
+              className="object-cover object-top"
               quality={85}
             />
             {/* Motif chevron en filigrane sur la photo */}
@@ -128,38 +128,31 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── CTA FINAL ────────────────────────────────────────── */}
+      {/* ── INSCRIPTION VIP ──────────────────────────────────── */}
       <section id="acces" className="bg-nw-black py-24 px-6 text-center relative overflow-hidden">
-        {/* Pattern chevron très subtil */}
         <div className="absolute inset-0 pattern-wax opacity-[0.03]" />
 
         <div className="relative z-10 max-w-md mx-auto">
           <Image
             src="/logo.png"
             alt="Nanawax"
-            width={140}
-            height={62}
+            width={85}
+            height={38}
             unoptimized
             className="mx-auto mb-10 invert"
           />
-          <p className="font-display font-thin text-3xl text-nw-white mb-4 leading-snug">
-            Prochaine vente<br />privée
+          <p className="text-[10px] font-display uppercase tracking-[0.3em] text-nw-camel mb-4">
+            Accès VIP
           </p>
-          <p className="text-sm text-nw-white/40 font-body mb-10 leading-relaxed">
-            Pour recevoir votre lien d'accès personnel,<br />
-            contactez Nanawax directement sur Instagram.
+          <p className="font-display font-thin text-3xl text-nw-white mb-6 leading-snug">
+            Rejoignez<br />la liste
           </p>
-          <a
-            href="https://instagram.com/nanawax"
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-3 bg-nw-white text-nw-black text-[11px] font-display font-light uppercase tracking-[0.15em] px-8 py-4 hover:bg-nw-camel hover:text-nw-white transition-colors"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-            </svg>
-            Nous contacter sur Instagram
-          </a>
+          <div className="w-8 h-px bg-nw-camel mx-auto mb-8" />
+          <p className="text-sm text-nw-white/40 font-body mb-10 leading-relaxed max-w-xs mx-auto">
+            Cliquez ci-dessous pour vous inscrire.<br />
+            Vous serez guidée étape par étape pour rejoindre la communauté VIP.
+          </p>
+          <WaitlistButton />
         </div>
       </section>
 
@@ -170,7 +163,7 @@ export default function LandingPage() {
             © 2026 Nanawax
           </p>
           <p className="text-[10px] font-display uppercase tracking-[0.2em] text-nw-white/20">
-            Ventes privées · Paris
+            Événements exclusifs · Paris
           </p>
         </div>
       </footer>
