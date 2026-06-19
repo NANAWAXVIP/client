@@ -50,7 +50,7 @@ export function InvitationActions({ token }: Props) {
           Merci pour votre réponse.
         </p>
         <p className="text-xs text-nw-black/40">
-          Nous espérons vous retrouver lors d'une prochaine vente privée.
+          Nous espérons vous retrouver lors d'un prochain événement.
         </p>
       </div>
     )

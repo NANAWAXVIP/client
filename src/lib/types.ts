@@ -73,3 +73,5 @@ export interface EventWithStats extends Event {
   remaining_spots: number
   guests?: Guest[]
 }
+
+export type EventSummary = Pick<Event, 'id' | 'name' | 'date'>

@@ -2,10 +2,8 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowLeft, Plus, X } from 'lucide-react'
-import { NanawaxLogo } from '@/components/NanawaxLogo'
-import { Button } from '@/components/ui/Button'
 
 export default function NewEventPage() {
   const router = useRouter()
@@ -28,124 +26,120 @@ export default function NewEventPage() {
     e.preventDefault()
     setLoading(true)
     try {
-      const datetime = `${date}T${time}:00.000Z`
+      const datetime = new Date(`${date}T${time}:00`).toISOString()
       const res = await fetch('/api/events', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name, date: datetime, location,
-          capacity: Number(capacity), time_slots: slots,
-        }),
+        body: JSON.stringify({ name, date: datetime, location, capacity: Number(capacity), time_slots: slots }),
       })
-      if (res.ok) {
-        const event = await res.json()
-        router.push(`/admin/events/${event.id}`)
-      }
+      if (res.ok) router.push('/admin')
     } finally {
       setLoading(false)
     }
   }
 
-  return (
-    <div className="min-h-screen bg-nw-white">
-      <div className="border-b border-nw-black/8 px-5 py-4 flex items-center justify-between">
-        <Link href="/admin" className="text-nw-black/40 hover:text-nw-black transition-colors">
-          <ArrowLeft size={16} strokeWidth={1.5} />
-        </Link>
-        <NanawaxLogo size="sm" />
-        <div className="w-8" />
-      </div>
+  const inputClass = "w-full bg-[#2C2118] border border-[#5C4A38] text-nw-white px-4 py-3.5 text-sm font-body outline-none focus:border-nw-camel transition-colors placeholder:text-nw-white/30"
+  const labelClass = "block text-[10px] font-display uppercase tracking-[0.2em] text-nw-white/40 mb-2"
 
-      <div className="px-5 pt-8 pb-16 max-w-md mx-auto">
-        <div className="mb-8">
-          <p className="text-[10px] font-display uppercase tracking-[0.2em] text-nw-camel mb-2">Nouvel événement</p>
-          <h1 className="font-display font-light text-2xl">Créer une vente privée</h1>
+  return (
+    <div className="min-h-screen bg-nw-black">
+
+      {/* Header */}
+      <header className="sticky top-0 z-20 bg-nw-black/95 backdrop-blur-sm border-b border-nw-white/8 px-5 py-4">
+        <div className="flex items-center justify-between max-w-xl mx-auto">
+          <a href="/admin" className="text-nw-white/40 hover:text-nw-white transition-colors">
+            <ArrowLeft size={18} strokeWidth={1.5} />
+          </a>
+          <Image src="/logo.png" alt="Nanawax" width={100} height={44} unoptimized className="invert brightness-0 invert" />
+          <div className="w-6" />
+        </div>
+      </header>
+
+      <div className="px-5 pt-10 pb-20 max-w-xl mx-auto">
+
+        {/* Titre */}
+        <div className="mb-10">
+          <p className="text-[10px] font-display uppercase tracking-[0.3em] text-nw-camel mb-3">Nouvel événement</p>
+          <h1 className="font-display font-thin text-4xl text-nw-white">Créer un événement</h1>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-6">
+
+          {/* Nom */}
           <div>
-            <label className="block text-[10px] font-display uppercase tracking-[0.15em] text-nw-black/50 mb-2">
-              Nom de l'événement
-            </label>
-            <input
-              type="text" required value={name} onChange={e => setName(e.target.value)}
-              placeholder="Vente Privée Été 2026"
-              className="w-full border border-nw-black/15 bg-transparent px-4 py-3 text-sm outline-none focus:border-nw-camel transition-colors placeholder:text-nw-black/25"
-            />
+            <label className={labelClass}>Nom de l'événement</label>
+            <input type="text" required value={name} onChange={e => setName(e.target.value)}
+              placeholder="Ex: Lancement Collection, Vente Privée Été, Soirée VIP…" className={inputClass} />
           </div>
 
+          {/* Date + heure */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-[10px] font-display uppercase tracking-[0.15em] text-nw-black/50 mb-2">Date</label>
-              <input
-                type="date" required value={date} onChange={e => setDate(e.target.value)}
-                className="w-full border border-nw-black/15 bg-transparent px-4 py-3 text-sm outline-none focus:border-nw-camel transition-colors"
-              />
+              <label className={labelClass}>Date</label>
+              <input type="date" required value={date} onChange={e => setDate(e.target.value)} className={inputClass} />
             </div>
             <div>
-              <label className="block text-[10px] font-display uppercase tracking-[0.15em] text-nw-black/50 mb-2">Heure</label>
-              <input
-                type="time" required value={time} onChange={e => setTime(e.target.value)}
-                className="w-full border border-nw-black/15 bg-transparent px-4 py-3 text-sm outline-none focus:border-nw-camel transition-colors"
-              />
+              <label className={labelClass}>Heure</label>
+              <input type="time" required value={time} onChange={e => setTime(e.target.value)} className={inputClass} />
             </div>
           </div>
 
+          {/* Lieu */}
           <div>
-            <label className="block text-[10px] font-display uppercase tracking-[0.15em] text-nw-black/50 mb-2">Lieu</label>
-            <input
-              type="text" required value={location} onChange={e => setLocation(e.target.value)}
-              placeholder="Showroom Nanawax — 12 rue des Arts, Paris 11e"
-              className="w-full border border-nw-black/15 bg-transparent px-4 py-3 text-sm outline-none focus:border-nw-camel transition-colors placeholder:text-nw-black/25"
-            />
+            <label className={labelClass}>Lieu</label>
+            <input type="text" required value={location} onChange={e => setLocation(e.target.value)}
+              placeholder="Showroom Nanawax — 12 rue des Arts, Paris 11e" className={inputClass} />
           </div>
 
+          {/* Capacité */}
           <div>
-            <label className="block text-[10px] font-display uppercase tracking-[0.15em] text-nw-black/50 mb-2">
-              Nombre de places
-            </label>
-            <input
-              type="number" required min="1" max="500" value={capacity} onChange={e => setCapacity(e.target.value)}
-              className="w-full border border-nw-black/15 bg-transparent px-4 py-3 text-sm outline-none focus:border-nw-camel transition-colors"
-            />
+            <label className={labelClass}>Nombre de places</label>
+            <input type="number" required min="1" max="500" value={capacity}
+              onChange={e => setCapacity(e.target.value)} className={inputClass} />
           </div>
 
-          {/* Time slots */}
+          {/* Créneaux */}
           <div>
-            <label className="block text-[10px] font-display uppercase tracking-[0.15em] text-nw-black/50 mb-2">
-              Créneaux horaires (optionnel)
-            </label>
-            <div className="space-y-2 mb-2">
-              {slots.map(slot => (
-                <div key={slot} className="flex items-center justify-between bg-nw-black/4 px-3 py-2">
-                  <span className="text-sm font-display font-light">{slot}</span>
-                  <button type="button" onClick={() => setSlots(prev => prev.filter(s => s !== slot))}>
-                    <X size={12} className="text-nw-black/30 hover:text-nw-black/60" />
-                  </button>
-                </div>
-              ))}
-            </div>
+            <label className={labelClass}>Créneaux horaires — optionnel</label>
+            {slots.length > 0 && (
+              <div className="space-y-2 mb-2">
+                {slots.map(slot => (
+                  <div key={slot} className="flex items-center justify-between bg-[#2C2118] border border-[#5C4A38] px-4 py-2.5">
+                    <span className="text-sm font-display font-light text-nw-white">{slot}</span>
+                    <button type="button" onClick={() => setSlots(prev => prev.filter(s => s !== slot))}>
+                      <X size={13} className="text-nw-white/30 hover:text-nw-white/60" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
             <div className="flex gap-2">
-              <input
-                type="text" value={newSlot} onChange={e => setNewSlot(e.target.value)}
+              <input type="text" value={newSlot} onChange={e => setNewSlot(e.target.value)}
                 onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); addSlot() } }}
                 placeholder="ex: 15h00 – 15h30"
-                className="flex-1 border border-nw-black/15 bg-transparent px-3 py-2 text-sm outline-none focus:border-nw-camel transition-colors placeholder:text-nw-black/25"
-              />
-              <button
-                type="button" onClick={addSlot}
-                className="border border-nw-black/15 px-3 py-2 hover:border-nw-camel transition-colors"
-              >
-                <Plus size={14} className="text-nw-black/40" />
+                className={`flex-1 ${inputClass}`} />
+              <button type="button" onClick={addSlot}
+                className="bg-[#2C2118] border border-[#5C4A38] px-4 hover:border-nw-camel transition-colors">
+                <Plus size={15} className="text-nw-white/50" />
               </button>
             </div>
           </div>
 
-          <div className="pt-4">
-            <Button type="submit" variant="primary" size="lg" className="w-full" loading={loading}>
-              Créer l'événement
-            </Button>
-          </div>
+          {/* Séparateur */}
+          <div className="h-px bg-nw-white/8" />
+
+          {/* Submit */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-nw-camel text-nw-white font-display font-light text-sm uppercase tracking-[0.15em] py-5 hover:bg-[#a3744e] transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+          >
+            {loading ? 'Création en cours…' : "Créer l'événement"}
+          </button>
+
+          <a href="/admin" className="block text-center text-[11px] font-display uppercase tracking-[0.12em] text-nw-white/25 hover:text-nw-white/50 transition-colors">
+            Annuler
+          </a>
         </form>
       </div>
     </div>

@@ -21,7 +21,7 @@ function invitationText(guest: Guest, event: Event, baseUrl: string): string {
   const inviteUrl = `${baseUrl}/invitation/${guest.token}`
   return (
     `Bonjour ${firstName} 🖤\n\n` +
-    `Vous êtes invitée à la vente privée *Nanawax*.\n\n` +
+    `Vous êtes invitée à *${event.name}* — Nanawax.\n\n` +
     `📅 ${formatDate(event.date)}\n` +
     `🕐 ${formatTime(event.date)}\n` +
     `📍 ${event.location}\n\n` +
@@ -46,7 +46,7 @@ function d1ReminderText(guest: Guest, event: Event): string {
   const firstName = guest.name.split(' ')[0]
   return (
     `À demain ${firstName} 🖤\n\n` +
-    `Rappel : votre vente privée *Nanawax* est *demain*.\n\n` +
+    `Rappel : *${event.name}* — Nanawax, c'est *demain*.\n\n` +
     `📅 ${formatDate(event.date)}\n` +
     `🕐 ${formatTime(event.date)}\n` +
     `📍 ${event.location}\n\n` +
