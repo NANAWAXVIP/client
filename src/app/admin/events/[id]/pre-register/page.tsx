@@ -27,7 +27,7 @@ export default async function PreRegAdminPage({ params }: Props) {
     <div className="min-h-screen bg-black">
 
       {/* Header */}
-      <header className="sticky top-0 z-20 bg-white border-b border-black/8 px-5 py-4">
+      <header className="sticky top-0 z-20 bg-white border-b border-black px-5 py-4">
         <div className="flex items-center justify-between max-w-xl mx-auto">
           <Link href="/admin" className="text-black/40 hover:text-black transition-colors">
             <ArrowLeft size={18} strokeWidth={1.5} />
@@ -79,7 +79,7 @@ export default async function PreRegAdminPage({ params }: Props) {
             <p className="text-[10px] font-display uppercase tracking-[0.2em] text-nw-white mb-4">
               Historique · {list.length}
             </p>
-            <div className="divide-y divide-nw-white/6">
+            <div className="divide-y divide-black">
               {list.map(p => {
                 const date  = new Date(p.created_at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })
                 const guest = (p as any).guest

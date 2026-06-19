@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 
 const inputClass = [
-  'w-full border-0 border-b border-nw-black/20 bg-transparent',
+  'w-full border-0 border-b border-black bg-transparent',
   'px-0 py-3 text-sm font-body text-nw-black outline-none',
   'focus:border-nw-camel transition-colors duration-200',
   'placeholder:text-nw-black/25 rounded-none',

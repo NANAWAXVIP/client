@@ -87,7 +87,7 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
           <div className="relative">
             <button
               onClick={() => setShowEventPicker(s => !s)}
-              className="w-full flex items-center justify-between border border-black/15 px-4 py-3 hover:border-black/40 transition-colors"
+              className="w-full flex items-center justify-between border border-black px-4 py-3 hover:border-black transition-colors"
             >
               <div className="text-left">
                 <p className="text-[9px] font-display uppercase tracking-[0.2em] text-black/40 mb-0.5">Événement actif</p>
@@ -96,7 +96,7 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
               <ChevronDown size={15} className={`text-black/50 transition-transform ${showEventPicker ? 'rotate-180' : ''}`} />
             </button>
             {showEventPicker && (
-              <div className="absolute top-full left-0 right-0 z-20 bg-white border border-black/15 border-t-0 shadow-lg">
+              <div className="absolute top-full left-0 right-0 z-20 bg-white border border-black border-t-0 shadow-lg">
                 {allEvents.map(e => (
                   <a
                     key={e.id}
@@ -121,7 +121,7 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
         </div>
 
         {/* ── PLACES ─────────────────────────────────────────── */}
-        <div className="border border-black/15 p-6">
+        <div className="border border-black p-6">
           <p className="text-[10px] font-display uppercase tracking-[0.2em] text-black mb-6">
             Gestion des places
           </p>
@@ -193,7 +193,7 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
                 className={`flex items-center gap-1.5 text-[10px] font-display uppercase tracking-[0.1em] px-3 py-2 whitespace-nowrap transition-colors ${
                   filter === f.key
                     ? 'bg-black text-white'
-                    : 'text-black border border-black/20 hover:border-black/50'
+                    : 'text-black border border-black hover:border-black/50'
                 }`}
               >
                 {f.label}
@@ -205,7 +205,7 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
           </div>
 
           {/* Rows */}
-          <div className="divide-y divide-black/8">
+          <div className="divide-y divide-black">
             {filteredGuests.length === 0 && (
               <p className="text-sm text-black/40 text-center py-8">Aucune invitée dans cette catégorie.</p>
             )}
@@ -229,7 +229,7 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
           {/* Inviter */}
           <button
             onClick={() => setShowInvite(true)}
-            className="mt-5 w-full border border-dashed border-black/20 py-4 flex items-center justify-center gap-2 text-[11px] font-display uppercase tracking-[0.12em] text-black/50 hover:border-nw-camel hover:text-nw-camel transition-colors"
+            className="mt-5 w-full border border-dashed border-black py-4 flex items-center justify-center gap-2 text-[11px] font-display uppercase tracking-[0.12em] text-black/50 hover:border-nw-camel hover:text-nw-camel transition-colors"
           >
             <Plus size={13} />
             Inviter une nouvelle cliente

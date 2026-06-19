@@ -38,7 +38,7 @@ export default function NewEventPage() {
     }
   }
 
-  const inputClass = "w-full border border-black/20 bg-white text-black px-4 py-3.5 text-sm font-body outline-none focus:border-nw-camel transition-colors placeholder:text-black/25"
+  const inputClass = "w-full border border-black bg-white text-black px-4 py-3.5 text-sm font-body outline-none focus:border-nw-camel transition-colors placeholder:text-black/25"
   const labelClass = "block text-[10px] font-display uppercase tracking-[0.2em] text-black mb-2"
 
   return (
@@ -99,7 +99,7 @@ export default function NewEventPage() {
             {slots.length > 0 && (
               <div className="space-y-2 mb-2">
                 {slots.map(slot => (
-                  <div key={slot} className="flex items-center justify-between border border-black/15 px-4 py-2.5">
+                  <div key={slot} className="flex items-center justify-between border border-black px-4 py-2.5">
                     <span className="text-sm font-display font-light text-black">{slot}</span>
                     <button type="button" onClick={() => setSlots(prev => prev.filter(s => s !== slot))}>
                       <X size={13} className="text-black/30 hover:text-black/60" />
@@ -114,7 +114,7 @@ export default function NewEventPage() {
                 placeholder="ex: 15h00 – 15h30"
                 className={`flex-1 ${inputClass}`} />
               <button type="button" onClick={addSlot}
-                className="border border-black/20 px-4 hover:border-nw-camel transition-colors">
+                className="border border-black px-4 hover:border-nw-camel transition-colors">
                 <Plus size={15} className="text-black/40" />
               </button>
             </div>

@@ -56,7 +56,7 @@ export function TimeSlotPicker({ token, slots }: Props) {
             'w-full text-left px-5 py-4 border transition-all duration-150 text-sm font-display font-light tracking-wide',
             selected === slot
               ? 'border-nw-camel bg-nw-camel/8 text-nw-camel'
-              : 'border-nw-black/12 text-nw-black hover:border-nw-black/30'
+              : 'border-black text-nw-black hover:border-nw-camel'
           )}
         >
           {slot}

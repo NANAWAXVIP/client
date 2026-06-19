@@ -12,7 +12,7 @@ const statusConfig: Record<GuestStatus, { label: string; className: string }> = 
   },
   declined: {
     label: 'Déclinée',
-    className: 'bg-nw-black/6 text-nw-black/40 border border-nw-black/10',
+    className: 'bg-nw-black/6 text-nw-black/40 border border-black',
   },
 }
 

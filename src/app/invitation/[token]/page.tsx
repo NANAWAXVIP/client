@@ -78,14 +78,14 @@ export default async function InvitationPage({ params }: Props) {
         </div>
 
         <div className="grid grid-cols-2 gap-3">
-          <div className="border border-nw-black/10 p-4">
+          <div className="border border-black p-4">
             <Calendar size={14} className="text-nw-camel mb-3" strokeWidth={1.5} />
             <p className="font-display font-light text-sm leading-snug">
               {formatDate(event.date).split(' ').slice(0, 3).join(' ')}
             </p>
             <p className="text-xs text-nw-black/45 mt-1">{formatTime(event.date)}</p>
           </div>
-          <div className="border border-nw-black/10 p-4">
+          <div className="border border-black p-4">
             <MapPin size={14} className="text-nw-camel mb-3" strokeWidth={1.5} />
             <p className="font-display font-light text-sm leading-snug">
               {event.location.split('—')[0].trim()}
@@ -96,7 +96,7 @@ export default async function InvitationPage({ params }: Props) {
           </div>
         </div>
 
-        <div className="border border-nw-black/10 p-4">
+        <div className="border border-black p-4">
           <div className="flex justify-between items-center mb-3">
             <p className="text-[10px] font-display uppercase tracking-[0.15em] text-nw-black/40">
               Places disponibles
@@ -127,7 +127,7 @@ export default async function InvitationPage({ params }: Props) {
                   Choisir mon créneau horaire
                 </Link>
               )}
-              <Link href={`/invitation/${token}/messages`} className="flex items-center justify-between border border-nw-black/8 px-4 py-3.5 hover:border-nw-camel/30 transition-colors mt-1">
+              <Link href={`/invitation/${token}/messages`} className="flex items-center justify-between border border-black px-4 py-3.5 hover:border-nw-camel/30 transition-colors mt-1">
                 <div className="flex items-center gap-3">
                   <span className="text-lg">🎁</span>
                   <div>
@@ -143,7 +143,7 @@ export default async function InvitationPage({ params }: Props) {
               </Link>
             </div>
           ) : isDeclined ? (
-            <div className="border border-nw-black/10 p-5 text-center">
+            <div className="border border-black p-5 text-center">
               <p className="text-sm font-display font-light text-nw-black/50">Vous avez décliné cette invitation.</p>
               <p className="text-xs text-nw-black/30 mt-1">Nous espérons vous retrouver bientôt.</p>
             </div>

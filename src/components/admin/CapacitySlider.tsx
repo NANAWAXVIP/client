@@ -66,7 +66,7 @@ export function CapacitySlider({ eventId, initialCapacity, confirmed, pending, d
           { n: declined,  label: 'Déclinées',    color: 'text-red-500',  border: 'border-red-400/40',   bg: 'bg-red-50' },
           { n: remaining, label: 'Disponibles',
             color:  isFull ? 'text-red-500' : isAlmostFull ? 'text-orange-500' : 'text-black',
-            border: isFull ? 'border-red-400/50' : isAlmostFull ? 'border-orange-400/50' : 'border-black/20',
+            border: isFull ? 'border-red-400/50' : isAlmostFull ? 'border-orange-400/50' : 'border-black',
             bg:     'bg-black/3' },
         ].map(({ n, label, color, border, bg }) => (
           <div key={label} className={`${bg} border ${border} py-3 px-1`}>
@@ -89,7 +89,7 @@ export function CapacitySlider({ eventId, initialCapacity, confirmed, pending, d
       </div>
 
       {/* Contrôle capacité */}
-      <div className="border border-black/15 p-4">
+      <div className="border border-black p-4">
         <p className="text-[9px] font-display uppercase tracking-[0.2em] text-black/50 mb-3">
           Capacité totale
         </p>
@@ -97,7 +97,7 @@ export function CapacitySlider({ eventId, initialCapacity, confirmed, pending, d
           <button
             onClick={() => adjust(-1)}
             disabled={capacity <= confirmed}
-            className="w-9 h-9 border border-black/20 text-black hover:border-nw-camel hover:text-nw-camel transition-colors disabled:opacity-20 text-lg leading-none flex items-center justify-center"
+            className="w-9 h-9 border border-black text-black hover:border-nw-camel hover:text-nw-camel transition-colors disabled:opacity-20 text-lg leading-none flex items-center justify-center"
           >
             −
           </button>
@@ -106,11 +106,11 @@ export function CapacitySlider({ eventId, initialCapacity, confirmed, pending, d
             value={capacity}
             min={confirmed}
             onChange={e => handleInput(e.target.value)}
-            className="flex-1 bg-transparent text-center text-2xl font-display font-thin text-black outline-none border-b border-black/20 focus:border-nw-camel transition-colors pb-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            className="flex-1 bg-transparent text-center text-2xl font-display font-thin text-black outline-none border-b border-black focus:border-nw-camel transition-colors pb-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
           />
           <button
             onClick={() => adjust(+1)}
-            className="w-9 h-9 border border-black/20 text-black hover:border-nw-camel hover:text-nw-camel transition-colors text-lg leading-none flex items-center justify-center"
+            className="w-9 h-9 border border-black text-black hover:border-nw-camel hover:text-nw-camel transition-colors text-lg leading-none flex items-center justify-center"
           >
             +
           </button>

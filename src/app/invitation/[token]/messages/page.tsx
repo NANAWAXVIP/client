@@ -44,7 +44,7 @@ export default async function GuestMessagesPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-nw-white">
-      <div className="sticky top-0 z-10 bg-nw-white/95 backdrop-blur-sm border-b border-nw-black/8">
+      <div className="sticky top-0 z-10 bg-nw-white/95 backdrop-blur-sm border-b border-black">
         <div className="flex items-center justify-between px-4 py-4">
           <Link href={`/invitation/${token}`} className="text-nw-black/40 hover:text-nw-black transition-colors">
             <ArrowLeft size={16} strokeWidth={1.5} />
@@ -69,7 +69,7 @@ export default async function GuestMessagesPage({ params }: Props) {
             {messages.map((msg: any) => {
               const date = new Date(msg.created_at).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })
               return (
-                <div key={msg.id} className="border border-nw-black/8 overflow-hidden">
+                <div key={msg.id} className="border border-black overflow-hidden">
                   <div className="bg-nw-black px-4 py-3 flex items-center justify-between">
                     <NanawaxLogo size="sm" inverted />
                     <span className="text-[10px] font-display text-nw-white/40">{date}</span>
@@ -78,7 +78,7 @@ export default async function GuestMessagesPage({ params }: Props) {
                     <p className="text-sm font-body leading-relaxed text-nw-black/80">{msg.content}</p>
                   </div>
                   {msg.file_name && (
-                    <div className="border-t border-nw-black/8 px-4 py-3 flex items-center gap-3">
+                    <div className="border-t border-black px-4 py-3 flex items-center gap-3">
                       <div className="w-10 h-10 bg-nw-camel/10 flex items-center justify-center shrink-0">
                         <FileIcon type={msg.file_type} />
                       </div>

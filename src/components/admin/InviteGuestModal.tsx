@@ -64,7 +64,7 @@ export function InviteGuestModal({ eventId, onClose, onSuccess }: Props) {
             <input
               type="text" required value={name} onChange={e => setName(e.target.value)}
               placeholder="Amara Diallo"
-              className="w-full border border-nw-black/15 bg-transparent px-4 py-3 text-sm outline-none focus:border-nw-camel transition-colors placeholder:text-nw-black/25"
+              className="w-full border border-black bg-transparent px-4 py-3 text-sm outline-none focus:border-nw-camel transition-colors placeholder:text-nw-black/25"
             />
           </div>
 
@@ -75,7 +75,7 @@ export function InviteGuestModal({ eventId, onClose, onSuccess }: Props) {
             <input
               type="email" required value={email} onChange={e => setEmail(e.target.value)}
               placeholder="amara@example.com"
-              className="w-full border border-nw-black/15 bg-transparent px-4 py-3 text-sm outline-none focus:border-nw-camel transition-colors placeholder:text-nw-black/25"
+              className="w-full border border-black bg-transparent px-4 py-3 text-sm outline-none focus:border-nw-camel transition-colors placeholder:text-nw-black/25"
             />
           </div>
 
@@ -90,7 +90,7 @@ export function InviteGuestModal({ eventId, onClose, onSuccess }: Props) {
             <input
               type="tel" value={phone} onChange={e => setPhone(e.target.value)}
               placeholder="+33 6 12 34 56 78"
-              className="w-full border border-nw-black/15 bg-transparent px-4 py-3 text-sm outline-none focus:border-[#25D366] transition-colors placeholder:text-nw-black/25"
+              className="w-full border border-black bg-transparent px-4 py-3 text-sm outline-none focus:border-[#25D366] transition-colors placeholder:text-nw-black/25"
             />
             {hasPhone && (
               <p className="text-[10px] text-[#25D366]/80 mt-1.5 flex items-center gap-1">

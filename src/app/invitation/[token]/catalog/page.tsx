@@ -48,7 +48,7 @@ export default async function CatalogPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-nw-white">
-      <div className="sticky top-0 z-20 bg-nw-white/95 backdrop-blur-sm border-b border-nw-black/8">
+      <div className="sticky top-0 z-20 bg-nw-white/95 backdrop-blur-sm border-b border-black">
         <div className="flex items-center justify-between px-4 py-4">
           <Link href={`/invitation/${token}`} className="flex items-center gap-2 text-nw-black/40 hover:text-nw-black transition-colors">
             <ArrowLeft size={16} strokeWidth={1.5} />
@@ -97,7 +97,7 @@ export default async function CatalogPage({ params }: Props) {
       </div>
 
       {hasSlots && (
-        <div className="fixed bottom-0 left-0 right-0 z-20 bg-nw-white/95 backdrop-blur-sm border-t border-nw-black/8 p-4">
+        <div className="fixed bottom-0 left-0 right-0 z-20 bg-nw-white/95 backdrop-blur-sm border-t border-black p-4">
           <Link href={`/invitation/${token}/schedule`} className="block w-full bg-nw-black text-nw-white text-center py-4 text-[11px] font-display uppercase tracking-[0.1em] hover:bg-[#333] transition-colors max-w-md mx-auto">
             Choisir mon créneau de passage →
           </Link>

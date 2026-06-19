@@ -21,7 +21,7 @@ export default async function SchedulePage({ params }: Props) {
   return (
     <div className="min-h-screen bg-nw-white">
       {/* Header */}
-      <div className="border-b border-nw-black/8 px-4 py-4 flex items-center justify-between">
+      <div className="border-b border-black px-4 py-4 flex items-center justify-between">
         <Link href={`/invitation/${token}/catalog`} className="text-nw-black/40 hover:text-nw-black transition-colors">
           <ArrowLeft size={16} strokeWidth={1.5} />
         </Link>

@@ -55,7 +55,7 @@ export function DemandesSection({ demandes: initial, eventId, eventName }: Props
       <div className="h-px bg-black/8" />
 
       {/* Liste */}
-      <div className="divide-y divide-black/8">
+      <div className="divide-y divide-black">
         {demandes.map(d => {
           const originalEvent  = (d as any).event?.name
           const differentEvent = originalEvent && d.event_id !== eventId

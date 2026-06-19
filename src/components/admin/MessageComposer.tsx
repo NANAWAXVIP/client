@@ -86,7 +86,7 @@ export function MessageComposer({ eventId, guests }: Props) {
               className={`flex items-center gap-1.5 text-[11px] font-display uppercase tracking-[0.1em] px-3 py-2 border transition-colors ${
                 mode === value
                   ? 'border-nw-camel bg-nw-camel/8 text-nw-camel'
-                  : 'border-black/20 text-black hover:border-black/50'
+                  : 'border-black text-black hover:border-black/50'
               }`}
             >
               <Icon size={11} />
@@ -96,7 +96,7 @@ export function MessageComposer({ eventId, guests }: Props) {
         </div>
 
         {mode === 'custom' && (
-          <div className="mt-3 border border-black/15 divide-y divide-black/8">
+          <div className="mt-3 border border-black divide-y divide-black">
             {guests.map(guest => (
               <label key={guest.id} className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-black/2">
                 <input
@@ -134,7 +134,7 @@ export function MessageComposer({ eventId, guests }: Props) {
           onChange={e => setContent(e.target.value)}
           placeholder="Votre cadeau exclusif Nanawax 🖤 En remerciement de votre fidélité..."
           rows={4}
-          className="w-full border border-black/20 bg-transparent px-4 py-3 text-sm outline-none focus:border-nw-camel transition-colors resize-none placeholder:text-black/25 text-black"
+          className="w-full border border-black bg-transparent px-4 py-3 text-sm outline-none focus:border-nw-camel transition-colors resize-none placeholder:text-black/25 text-black"
         />
         <p className="text-[10px] text-black mt-1 text-right">{content.length} caractères</p>
       </div>
@@ -156,7 +156,7 @@ export function MessageComposer({ eventId, guests }: Props) {
         ) : (
           <button
             onClick={() => fileRef.current?.click()}
-            className="w-full border border-dashed border-black/20 px-4 py-4 flex items-center justify-center gap-2 hover:border-nw-camel transition-colors"
+            className="w-full border border-dashed border-black px-4 py-4 flex items-center justify-center gap-2 hover:border-nw-camel transition-colors"
           >
             <Paperclip size={14} className="text-black/40" />
             <span className="text-[11px] font-display uppercase tracking-[0.1em] text-black">

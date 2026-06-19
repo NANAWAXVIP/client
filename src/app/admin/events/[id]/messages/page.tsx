@@ -62,7 +62,7 @@ export default async function AdminMessagesPage({ params }: Props) {
                   day: 'numeric', month: 'long',
                 })
                 return (
-                  <div key={msg.id} className="border border-black/15 p-4">
+                  <div key={msg.id} className="border border-black p-4">
                     <div className="flex items-start justify-between gap-3 mb-2">
                       <p className="text-sm font-display font-light leading-snug flex-1 text-black">
                         {msg.content.length > 80 ? msg.content.slice(0, 80) + '…' : msg.content}

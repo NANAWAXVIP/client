@@ -12,7 +12,7 @@ interface Props {
   items: CatalogItem[]
 }
 
-const inputClass = 'w-full border border-black/20 bg-white text-black px-4 py-3.5 text-sm font-body outline-none focus:border-nw-camel transition-colors placeholder:text-black/25'
+const inputClass = 'w-full border border-black bg-white text-black px-4 py-3.5 text-sm font-body outline-none focus:border-nw-camel transition-colors placeholder:text-black/25'
 const labelClass = 'block text-[10px] font-display uppercase tracking-[0.2em] text-black mb-2'
 
 export function CatalogManager({ eventId, items: initialItems }: Props) {
@@ -81,7 +81,7 @@ export function CatalogManager({ eventId, items: initialItems }: Props) {
 
       {/* Grille */}
       {items.length === 0 ? (
-        <div className="text-center py-20 border border-black/10">
+        <div className="text-center py-20 border border-black">
           <p className="text-[10px] font-display uppercase tracking-[0.2em] text-black/30">
             Aucune pièce au catalogue
           </p>
@@ -91,7 +91,7 @@ export function CatalogManager({ eventId, items: initialItems }: Props) {
         <div className="grid grid-cols-2 gap-3">
           {items.map(item => (
             <div key={item.id} className="group">
-              <div className="aspect-[4/5] bg-black/4 border border-black/10 relative overflow-hidden">
+              <div className="aspect-[4/5] bg-black/4 border border-black relative overflow-hidden">
                 {item.image_url ? (
                   <Image src={item.image_url} alt={item.name} fill className="object-cover" />
                 ) : (
@@ -107,7 +107,7 @@ export function CatalogManager({ eventId, items: initialItems }: Props) {
                   <Trash2 size={11} className="text-red-500" />
                 </button>
               </div>
-              <div className="pt-2.5 pb-1 border-b border-black/8">
+              <div className="pt-2.5 pb-1 border-b border-black">
                 <p className="text-xs font-display font-light text-black truncate">{item.name}</p>
                 <p className="text-xs text-nw-camel mt-0.5">{formatPrice(item.price)}</p>
               </div>
@@ -120,10 +120,10 @@ export function CatalogManager({ eventId, items: initialItems }: Props) {
       {adding && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center">
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={resetForm} />
-          <div className="relative bg-white border border-black/15 w-full sm:max-w-md sm:mx-4 shadow-xl">
+          <div className="relative bg-white border border-black w-full sm:max-w-md sm:mx-4 shadow-xl">
 
             {/* Header modal */}
-            <div className="flex items-center justify-between px-6 py-5 border-b border-black/8">
+            <div className="flex items-center justify-between px-6 py-5 border-b border-black">
               <div>
                 <p className="text-[10px] font-display uppercase tracking-[0.2em] text-nw-camel mb-0.5">Catalogue</p>
                 <h2 className="font-display font-thin text-xl text-black">Nouvelle pièce</h2>
@@ -136,7 +136,7 @@ export function CatalogManager({ eventId, items: initialItems }: Props) {
             <form onSubmit={handleSubmit} className="px-6 py-6 space-y-5">
               {/* Zone image */}
               <div
-                className="aspect-video bg-black/4 border border-black/15 flex flex-col items-center justify-center cursor-pointer hover:border-nw-camel transition-colors relative overflow-hidden"
+                className="aspect-video bg-black/4 border border-black flex flex-col items-center justify-center cursor-pointer hover:border-nw-camel transition-colors relative overflow-hidden"
                 onClick={() => fileRef.current?.click()}
               >
                 {imagePreview ? (
@@ -168,7 +168,7 @@ export function CatalogManager({ eventId, items: initialItems }: Props) {
 
               <div className="flex gap-3 pt-1">
                 <button type="button" onClick={resetForm}
-                  className="flex-1 text-[11px] font-display uppercase tracking-[0.1em] text-black/40 hover:text-black transition-colors py-4 border border-black/15">
+                  className="flex-1 text-[11px] font-display uppercase tracking-[0.1em] text-black/40 hover:text-black transition-colors py-4 border border-black">
                   Annuler
                 </button>
                 <button type="submit" disabled={loading}
