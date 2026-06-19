@@ -15,8 +15,8 @@ export function CapacitySlider({ eventId, initialCapacity, confirmed, pending, d
   const [status, setStatus] = useState<'idle' | 'saving' | 'saved'>('idle')
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const remaining = Math.max(0, capacity - confirmed)
-  const pct       = capacity > 0 ? Math.min(100, Math.round((confirmed / capacity) * 100)) : 0
+  const remaining    = Math.max(0, capacity - confirmed)
+  const pct          = capacity > 0 ? Math.min(100, Math.round((confirmed / capacity) * 100)) : 0
   const isAlmostFull = remaining <= Math.max(1, Math.round(capacity * 0.2))
   const isFull       = remaining === 0
 
@@ -61,43 +61,43 @@ export function CapacitySlider({ eventId, initialCapacity, confirmed, pending, d
       {/* Stats 4 colonnes */}
       <div className="grid grid-cols-4 gap-2 text-center">
         {[
-          { n: confirmed, label: 'Confirmées',   color: 'text-nw-sage',    border: 'border-nw-sage/40',   bg: 'bg-nw-sage/8' },
-          { n: pending,   label: 'Sans réponse', color: 'text-nw-camel',   border: 'border-nw-camel/40',  bg: 'bg-nw-camel/8' },
-          { n: declined,  label: 'Déclinées',    color: 'text-red-400',    border: 'border-red-400/30',   bg: 'bg-red-400/6' },
-          { n: remaining, label: 'Disponibles',  color: isFull ? 'text-red-400' : isAlmostFull ? 'text-orange-400' : 'text-nw-white', border: isFull ? 'border-red-400/40' : isAlmostFull ? 'border-orange-400/40' : 'border-nw-white/25', bg: 'bg-nw-white/4' },
+          { n: confirmed, label: 'Confirmées',   color: 'text-nw-sage',  border: 'border-nw-sage/50',   bg: 'bg-nw-sage/8' },
+          { n: pending,   label: 'Sans réponse', color: 'text-nw-camel', border: 'border-nw-camel/50',  bg: 'bg-nw-camel/8' },
+          { n: declined,  label: 'Déclinées',    color: 'text-red-500',  border: 'border-red-400/40',   bg: 'bg-red-50' },
+          { n: remaining, label: 'Disponibles',
+            color:  isFull ? 'text-red-500' : isAlmostFull ? 'text-orange-500' : 'text-black',
+            border: isFull ? 'border-red-400/50' : isAlmostFull ? 'border-orange-400/50' : 'border-black/20',
+            bg:     'bg-black/3' },
         ].map(({ n, label, color, border, bg }) => (
           <div key={label} className={`${bg} border ${border} py-3 px-1`}>
             <p className={`text-2xl font-display font-thin ${color}`}>{n}</p>
-            <p className="text-[9px] font-display uppercase tracking-[0.1em] text-nw-white mt-1 leading-tight">{label}</p>
+            <p className="text-[9px] font-display uppercase tracking-[0.1em] text-black/50 mt-1 leading-tight">{label}</p>
           </div>
         ))}
       </div>
 
       {/* Barre de remplissage */}
       <div className="space-y-1.5">
-        <div className="h-1.5 bg-nw-white/8 overflow-hidden">
-          <div
-            className="h-full transition-all duration-500"
-            style={{ width: `${pct}%`, backgroundColor: barColor }}
-          />
+        <div className="h-1.5 bg-black/8 overflow-hidden">
+          <div className="h-full transition-all duration-500" style={{ width: `${pct}%`, backgroundColor: barColor }} />
         </div>
         <div className="flex justify-between items-center">
-          <p className="text-[10px] text-nw-white">{pct}% rempli</p>
-          {isFull && <p className="text-[10px] text-red-400 font-display uppercase tracking-[0.1em]">Complet</p>}
-          {isAlmostFull && !isFull && <p className="text-[10px] text-orange-400 font-display uppercase tracking-[0.1em]">Presque complet</p>}
+          <p className="text-[10px] text-black/40">{pct}% rempli</p>
+          {isFull       && <p className="text-[10px] text-red-500 font-display uppercase tracking-[0.1em]">Complet</p>}
+          {isAlmostFull && !isFull && <p className="text-[10px] text-orange-500 font-display uppercase tracking-[0.1em]">Presque complet</p>}
         </div>
       </div>
 
       {/* Contrôle capacité */}
-      <div className="border border-white/30 p-4">
-        <p className="text-[9px] font-display uppercase tracking-[0.2em] text-nw-white mb-3">
+      <div className="border border-black/15 p-4">
+        <p className="text-[9px] font-display uppercase tracking-[0.2em] text-black/50 mb-3">
           Capacité totale
         </p>
         <div className="flex items-center gap-3">
           <button
             onClick={() => adjust(-1)}
             disabled={capacity <= confirmed}
-            className="w-9 h-9 border border-white/40 text-nw-white hover:border-nw-camel hover:text-nw-camel transition-colors disabled:opacity-20 text-lg leading-none flex items-center justify-center"
+            className="w-9 h-9 border border-black/20 text-black hover:border-nw-camel hover:text-nw-camel transition-colors disabled:opacity-20 text-lg leading-none flex items-center justify-center"
           >
             −
           </button>
@@ -106,16 +106,16 @@ export function CapacitySlider({ eventId, initialCapacity, confirmed, pending, d
             value={capacity}
             min={confirmed}
             onChange={e => handleInput(e.target.value)}
-            className="flex-1 bg-transparent text-center text-2xl font-display font-thin text-nw-white outline-none border-b border-white/40 focus:border-nw-camel transition-colors pb-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            className="flex-1 bg-transparent text-center text-2xl font-display font-thin text-black outline-none border-b border-black/20 focus:border-nw-camel transition-colors pb-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
           />
           <button
             onClick={() => adjust(+1)}
-            className="w-9 h-9 border border-white/40 text-nw-white hover:border-nw-camel hover:text-nw-camel transition-colors text-lg leading-none flex items-center justify-center"
+            className="w-9 h-9 border border-black/20 text-black hover:border-nw-camel hover:text-nw-camel transition-colors text-lg leading-none flex items-center justify-center"
           >
             +
           </button>
         </div>
-        <p className="text-[9px] text-nw-white text-center mt-2">
+        <p className="text-[9px] text-black/40 text-center mt-2">
           {status === 'saving' ? 'Enregistrement…' : status === 'saved' ? 'Enregistré ✓' : 'Sauvegarde automatique'}
         </p>
       </div>
