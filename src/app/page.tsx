@@ -30,7 +30,7 @@ export default function LandingPage() {
             width={180}
             height={80}
             unoptimized
-            className="invert brightness-0 invert"
+            className="invert"
           />
         </header>
 
@@ -140,7 +140,7 @@ export default function LandingPage() {
             width={140}
             height={62}
             unoptimized
-            className="mx-auto mb-10 invert brightness-0 invert"
+            className="mx-auto mb-10 invert"
           />
           <p className="font-display font-thin text-3xl text-nw-white mb-4 leading-snug">
             Prochaine vente<br />privée

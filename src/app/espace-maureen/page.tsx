@@ -20,7 +20,7 @@ export default function EspaceMaureenPage() {
             width={160}
             height={70}
             unoptimized
-            className="mx-auto invert brightness-0 invert"
+            className="mx-auto invert"
           />
 
           {/* Titre */}

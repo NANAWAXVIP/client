@@ -47,7 +47,7 @@ export default async function RegisterPage({ params }: Props) {
         {/* Logo */}
         <header className="relative z-10 flex justify-center pt-10">
           <a href="/">
-            <Image src="/logo.png" alt="Nanawax" width={160} height={70} unoptimized className="invert brightness-0 invert" />
+            <Image src="/logo.png" alt="Nanawax" width={160} height={70} unoptimized className="invert" />
           </a>
         </header>
 
