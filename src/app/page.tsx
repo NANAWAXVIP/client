@@ -70,7 +70,7 @@ export default async function LandingPage({
               {
                 n: '01',
                 title: 'Recevez votre invitation',
-                desc: 'Nanawax vous contacte personnellement et vous envoie un lien d'accès unique — réservé à vous seule.',
+                desc: "Nanawax vous contacte personnellement et vous envoie un lien d'accès unique — réservé à vous seule.",
               },
               {
                 n: '02',
