@@ -2,7 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { AdminDashboard } from '@/components/admin/AdminDashboard'
 import Image from 'next/image'
 import Link from 'next/link'
-import type { EventWithStats, Guest } from '@/lib/types'
+import type { EventWithStats, Guest, PreRegistration } from '@/lib/types'
 
 export const revalidate = 0
 
@@ -54,7 +54,16 @@ export default async function AdminPage({
     .eq('event_id', event.id)
     .order('created_at', { ascending: false })
 
+  // Demandes reçues via le formulaire public (nom renseigné, pas encore invitées)
+  const { data: demandesRaw } = await supabase
+    .from('pre_registrations')
+    .select('*')
+    .not('name', 'is', null)
+    .eq('status', 'pending')
+    .order('created_at', { ascending: false })
+
   const list: Guest[] = guests ?? []
+  const demandes: PreRegistration[] = demandesRaw ?? []
   const confirmed_count = list.filter(g => g.status === 'confirmed').length
   const pending_count   = list.filter(g => g.status === 'pending').length
   const declined_count  = list.filter(g => g.status === 'declined').length
@@ -67,5 +76,5 @@ export default async function AdminPage({
     remaining_spots: Math.max(0, event.capacity - confirmed_count),
   }
 
-  return <AdminDashboard event={eventWithStats} allEvents={events} guests={list} />
+  return <AdminDashboard event={eventWithStats} allEvents={events} guests={list} demandes={demandes} />
 }

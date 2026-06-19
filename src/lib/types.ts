@@ -42,8 +42,10 @@ export type PreRegStatus = 'pending' | 'registered' | 'expired'
 
 export interface PreRegistration {
   id: string
-  event_id: string
-  phone?: string   // renseigné par la personne lors de son inscription, pas par Maureen
+  event_id?: string
+  name?: string
+  email?: string
+  phone?: string
   token: string
   status: PreRegStatus
   guest_id?: string

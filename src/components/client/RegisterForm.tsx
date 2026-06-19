@@ -62,10 +62,10 @@ export function RegisterForm({ token }: Props) {
         </div>
         <div className="h-px bg-nw-black/8" />
         <p className="text-sm font-display font-light text-nw-black leading-relaxed">
-          Merci {name.split(' ')[0]}. Nanawax vous contactera personnellement pour confirmer votre accès.
+          Merci {name.split(' ')[0]}. Votre demande a bien été reçue.
         </p>
-        <p className="text-[11px] text-nw-black leading-relaxed">
-          Un email de confirmation vous a été envoyé.
+        <p className="text-sm font-display font-light text-nw-black leading-relaxed">
+          Vous recevrez une invitation par email si votre demande est retenue.
         </p>
         <div className="h-px bg-nw-black/8" />
         <p className="text-[10px] text-nw-black/40 leading-relaxed">

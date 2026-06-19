@@ -8,16 +8,18 @@ import { StatusBadge } from '@/components/ui/Badge'
 import { CapacitySlider } from './CapacitySlider'
 import { InviteGuestModal } from './InviteGuestModal'
 import { GuestActions } from './GuestActions'
-import type { EventWithStats, Guest, Event, GuestStatus } from '@/lib/types'
+import { DemandesSection } from './DemandesSection'
+import type { EventWithStats, Guest, Event, GuestStatus, PreRegistration } from '@/lib/types'
 import { formatDate, formatTime } from '@/lib/utils'
 
 interface Props {
   event: EventWithStats
   allEvents: Event[]
   guests: Guest[]
+  demandes: PreRegistration[]
 }
 
-export function AdminDashboard({ event, allEvents, guests: initialGuests }: Props) {
+export function AdminDashboard({ event, allEvents, guests: initialGuests, demandes }: Props) {
   const router = useRouter()
   const [guests, setGuests] = useState<Guest[]>(initialGuests)
   const [showInvite, setShowInvite] = useState(false)
@@ -182,6 +184,9 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests }: Prop
             <ChevronRight size={16} className="text-nw-white/20 group-hover:text-nw-white/50 transition-colors" />
           </a>
         </div>
+
+        {/* ── DEMANDES EN ATTENTE ───────────────────────────── */}
+        <DemandesSection demandes={demandes} eventId={event.id} />
 
         {/* ── LISTE INVITÉES ─────────────────────────────────── */}
         <div>
