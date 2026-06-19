@@ -121,8 +121,8 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
         </div>
 
         {/* ── PLACES ─────────────────────────────────────────── */}
-        <div className="bg-nw-white/5 border border-nw-white/8 p-6">
-          <p className="text-[10px] font-display uppercase tracking-[0.2em] text-nw-white/30 mb-6">
+        <div className="bg-nw-white/5 border border-nw-white/20 p-6">
+          <p className="text-[10px] font-display uppercase tracking-[0.2em] text-nw-white/60 mb-6">
             Gestion des places
           </p>
           <CapacitySlider
@@ -137,45 +137,45 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
         {/* ── ACTIONS ───────────────────────────────────────── */}
         <div className="space-y-2">
           <a href={`/admin/events/${event.id}/pre-register`}
-            className="flex items-center justify-between bg-nw-camel/10 border border-nw-camel/25 p-5 hover:bg-nw-camel/15 transition-colors group">
+            className="flex items-center justify-between bg-nw-camel/10 border border-nw-camel/50 p-5 hover:bg-nw-camel/20 transition-colors group">
             <div className="flex items-center gap-4">
-              <div className="w-9 h-9 bg-nw-camel/20 flex items-center justify-center shrink-0">
+              <div className="w-9 h-9 bg-nw-camel/30 flex items-center justify-center shrink-0">
                 <UserPlus size={16} className="text-nw-camel" />
               </div>
               <div>
                 <p className="text-sm font-display font-light text-nw-white">Liens d'inscription VIP</p>
-                <p className="text-xs text-nw-white/35 mt-0.5">Générer des liens personnels</p>
+                <p className="text-xs text-nw-white/60 mt-0.5">Générer des liens personnels</p>
               </div>
             </div>
-            <ChevronRight size={16} className="text-nw-camel/40 group-hover:text-nw-camel transition-colors" />
+            <ChevronRight size={16} className="text-nw-camel/60 group-hover:text-nw-camel transition-colors" />
           </a>
 
           <a href={`/admin/events/${event.id}/catalog`}
-            className="flex items-center justify-between bg-nw-white/4 border border-nw-white/8 p-5 hover:bg-nw-white/8 transition-colors group">
+            className="flex items-center justify-between bg-nw-blue/8 border border-nw-blue/40 p-5 hover:bg-nw-blue/15 transition-colors group">
             <div className="flex items-center gap-4">
-              <div className="w-9 h-9 bg-nw-white/8 flex items-center justify-center shrink-0">
+              <div className="w-9 h-9 bg-nw-blue/20 flex items-center justify-center shrink-0">
                 <span className="text-base">👗</span>
               </div>
               <div>
                 <p className="text-sm font-display font-light text-nw-white">Catalogue privé</p>
-                <p className="text-xs text-nw-white/35 mt-0.5">Pièces visibles après confirmation</p>
+                <p className="text-xs text-nw-white/60 mt-0.5">Pièces visibles après confirmation</p>
               </div>
             </div>
-            <ChevronRight size={16} className="text-nw-white/20 group-hover:text-nw-white/50 transition-colors" />
+            <ChevronRight size={16} className="text-nw-blue/40 group-hover:text-nw-blue transition-colors" />
           </a>
 
           <a href={`/admin/events/${event.id}/messages`}
-            className="flex items-center justify-between bg-nw-white/4 border border-nw-white/8 p-5 hover:bg-nw-white/8 transition-colors group">
+            className="flex items-center justify-between bg-nw-sage/8 border border-nw-sage/40 p-5 hover:bg-nw-sage/15 transition-colors group">
             <div className="flex items-center gap-4">
-              <div className="w-9 h-9 bg-nw-white/8 flex items-center justify-center shrink-0">
-                <Gift size={16} className="text-nw-white/60" />
+              <div className="w-9 h-9 bg-nw-sage/20 flex items-center justify-center shrink-0">
+                <Gift size={16} className="text-nw-sage" />
               </div>
               <div>
                 <p className="text-sm font-display font-light text-nw-white">Messagerie & cadeaux</p>
-                <p className="text-xs text-nw-white/35 mt-0.5">Billets, fichiers, messages exclusifs</p>
+                <p className="text-xs text-nw-white/60 mt-0.5">Billets, fichiers, messages exclusifs</p>
               </div>
             </div>
-            <ChevronRight size={16} className="text-nw-white/20 group-hover:text-nw-white/50 transition-colors" />
+            <ChevronRight size={16} className="text-nw-sage/40 group-hover:text-nw-sage transition-colors" />
           </a>
         </div>
 

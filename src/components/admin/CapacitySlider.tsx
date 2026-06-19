@@ -61,14 +61,14 @@ export function CapacitySlider({ eventId, initialCapacity, confirmed, pending, d
       {/* Stats 4 colonnes */}
       <div className="grid grid-cols-4 gap-2 text-center">
         {[
-          { n: confirmed, label: 'Confirmées', color: 'text-nw-sage' },
-          { n: pending,   label: 'Sans réponse', color: 'text-nw-camel' },
-          { n: declined,  label: 'Déclinées',  color: 'text-nw-white/40' },
-          { n: remaining, label: 'Disponibles', color: isFull ? 'text-red-400' : isAlmostFull ? 'text-orange-400' : 'text-nw-white' },
-        ].map(({ n, label, color }) => (
-          <div key={label} className="bg-nw-white/4 border border-nw-white/6 py-3 px-1">
+          { n: confirmed, label: 'Confirmées',   color: 'text-nw-sage',    border: 'border-nw-sage/40',   bg: 'bg-nw-sage/8' },
+          { n: pending,   label: 'Sans réponse', color: 'text-nw-camel',   border: 'border-nw-camel/40',  bg: 'bg-nw-camel/8' },
+          { n: declined,  label: 'Déclinées',    color: 'text-red-400',    border: 'border-red-400/30',   bg: 'bg-red-400/6' },
+          { n: remaining, label: 'Disponibles',  color: isFull ? 'text-red-400' : isAlmostFull ? 'text-orange-400' : 'text-nw-white', border: isFull ? 'border-red-400/40' : isAlmostFull ? 'border-orange-400/40' : 'border-nw-white/25', bg: 'bg-nw-white/4' },
+        ].map(({ n, label, color, border, bg }) => (
+          <div key={label} className={`${bg} border ${border} py-3 px-1`}>
             <p className={`text-2xl font-display font-thin ${color}`}>{n}</p>
-            <p className="text-[9px] font-display uppercase tracking-[0.1em] text-nw-white/25 mt-1 leading-tight">{label}</p>
+            <p className="text-[9px] font-display uppercase tracking-[0.1em] text-nw-white/60 mt-1 leading-tight">{label}</p>
           </div>
         ))}
       </div>
