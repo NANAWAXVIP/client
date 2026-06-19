@@ -42,7 +42,7 @@ export default function NewEventPage() {
   const labelClass = "block text-[10px] font-display uppercase tracking-[0.2em] text-nw-white/40 mb-2"
 
   return (
-    <div className="min-h-screen bg-nw-black">
+    <div className="min-h-screen bg-black">
 
       {/* Header */}
       <header className="sticky top-0 z-20 bg-nw-black/95 backdrop-blur-sm border-b border-nw-white/8 px-5 py-4">

@@ -20,7 +20,7 @@ export default async function CatalogAdminPage({ params }: Props) {
   const list = items ?? []
 
   return (
-    <div className="min-h-screen bg-nw-black">
+    <div className="min-h-screen bg-black">
 
       <header className="sticky top-0 z-20 bg-nw-black/95 backdrop-blur-sm border-b border-nw-white/8 px-5 py-4">
         <div className="flex items-center justify-between max-w-2xl mx-auto">

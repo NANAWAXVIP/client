@@ -21,7 +21,7 @@ export default async function AdminPage({
 
   if (!events || events.length === 0) {
     return (
-      <div className="min-h-screen bg-nw-black flex flex-col">
+      <div className="min-h-screen bg-black flex flex-col">
         <header className="px-6 py-8 flex items-center justify-between border-b border-nw-white/8">
           <Image src="/logo.png" alt="Nanawax" width={75} height={34} unoptimized className="invert" />
         </header>

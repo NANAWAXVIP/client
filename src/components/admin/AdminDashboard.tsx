@@ -59,7 +59,7 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
   ]
 
   return (
-    <div className="min-h-screen bg-nw-black">
+    <div className="min-h-screen bg-black">
 
       {/* ── HEADER ─────────────────────────────────────────── */}
       <header className="sticky top-0 z-30 bg-nw-black/95 backdrop-blur-sm border-b border-nw-white/8 px-5 py-4">
