@@ -44,6 +44,7 @@ const statusLabel: Record<string, string> = {
 export function AdminDashboard({ event, allEvents, guests: initialGuests, demandes }: Props) {
   const router = useRouter()
   const [guests, setGuests] = useState<Guest[]>(initialGuests)
+  const [capacity, setCapacity] = useState(event.capacity)
   const [showInvite, setShowInvite] = useState(false)
   const [reminding, setReminding] = useState(false)
   const [reminderSent, setReminderSent] = useState(false)
@@ -75,7 +76,7 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
   const confirmedCount = guests.filter(g => g.status === 'confirmed').length
   const declinedCount  = guests.filter(g => g.status === 'declined').length
   const pendingGuests  = guests.filter(g => g.status === 'pending')
-  const remaining      = Math.max(0, event.capacity - confirmedCount)
+  const remaining      = Math.max(0, capacity - confirmedCount)
   const filteredGuests = filter === 'all' ? guests : guests.filter(g => g.status === filter)
 
   const pendingToRemind = reminderDays === 0
@@ -226,6 +227,7 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
             confirmed={confirmedCount}
             pending={pendingGuests.length}
             declined={declinedCount}
+            onCapacityChange={setCapacity}
           />
         </div>
 

@@ -8,9 +8,10 @@ interface Props {
   confirmed: number
   pending: number
   declined: number
+  onCapacityChange?: (n: number) => void
 }
 
-export function CapacitySlider({ eventId, initialCapacity, confirmed, pending, declined }: Props) {
+export function CapacitySlider({ eventId, initialCapacity, confirmed, pending, declined, onCapacityChange }: Props) {
   const [capacity, setCapacity] = useState(initialCapacity)
   const [status, setStatus] = useState<'idle' | 'saving' | 'saved'>('idle')
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -34,6 +35,7 @@ export function CapacitySlider({ eventId, initialCapacity, confirmed, pending, d
   function adjust(delta: number) {
     const next = Math.max(confirmed, capacity + delta)
     setCapacity(next)
+    onCapacityChange?.(next)
     scheduleSave(next)
   }
 
@@ -42,6 +44,7 @@ export function CapacitySlider({ eventId, initialCapacity, confirmed, pending, d
     if (isNaN(n)) return
     const next = Math.max(confirmed, n)
     setCapacity(next)
+    onCapacityChange?.(next)
     scheduleSave(next)
   }
 
@@ -60,9 +63,6 @@ export function CapacitySlider({ eventId, initialCapacity, confirmed, pending, d
 
       {/* Contrôle capacité */}
       <div className="border border-black p-4">
-        <p className="text-[9px] font-display uppercase tracking-[0.2em] text-black/50 mb-3">
-          Capacité totale
-        </p>
         <div className="flex items-center gap-3">
           <button
             onClick={() => adjust(-1)}
