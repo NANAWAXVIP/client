@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { Mail, Plus, ChevronRight, Gift, UserPlus, ChevronDown, LogOut } from 'lucide-react'
+import { Mail, Plus, ChevronRight, Gift, UserPlus, ChevronDown, LogOut, Scan } from 'lucide-react'
 import { StatusBadge } from '@/components/ui/Badge'
 import { CapacitySlider } from './CapacitySlider'
 import { InviteGuestModal } from './InviteGuestModal'
@@ -25,21 +25,50 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
   const [showInvite, setShowInvite] = useState(false)
   const [reminding, setReminding] = useState(false)
   const [reminderSent, setReminderSent] = useState(false)
+  const [reminderDays, setReminderDays] = useState<0 | 3 | 7>(0)
   const [filter, setFilter] = useState<'all' | 'confirmed' | 'pending' | 'declined'>('all')
   const [showEventPicker, setShowEventPicker] = useState(false)
+  const [live, setLive] = useState(false)
+  const pollRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   function handleGuestUpdate(guestId: string, newStatus: GuestStatus) {
     setGuests(prev => prev.map(g => g.id === guestId ? { ...g, status: newStatus } : g))
   }
 
+  // Polling live toutes les 30 secondes
+  useEffect(() => {
+    async function poll() {
+      try {
+        const res = await fetch(`/api/events/${event.id}/guests`)
+        if (res.ok) {
+          const data = await res.json()
+          setGuests(data)
+          setLive(true)
+          setTimeout(() => setLive(false), 1500)
+        }
+      } catch { /* silencieux */ }
+    }
+    pollRef.current = setInterval(poll, 30_000)
+    return () => { if (pollRef.current) clearInterval(pollRef.current) }
+  }, [event.id])
+
   const confirmedCount = guests.filter(g => g.status === 'confirmed').length
   const pendingGuests  = guests.filter(g => g.status === 'pending')
   const filteredGuests = filter === 'all' ? guests : guests.filter(g => g.status === filter)
 
+  // Relance ciblée : invitées en attente depuis au moins reminderDays jours
+  const pendingToRemind = reminderDays === 0
+    ? pendingGuests
+    : pendingGuests.filter(g => {
+        const days = (Date.now() - new Date(g.created_at).getTime()) / 86_400_000
+        return days >= reminderDays
+      })
+
   async function handleRemind() {
+    if (pendingToRemind.length === 0) return
     setReminding(true)
     try {
-      await fetch(`/api/events/${event.id}/email/remind`, { method: 'POST' })
+      await fetch(`/api/events/${event.id}/email/remind?minDays=${reminderDays}`, { method: 'POST' })
       setReminderSent(true)
     } finally {
       setReminding(false)
@@ -66,6 +95,15 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
         <div className="flex items-center justify-between max-w-2xl mx-auto">
           <a href="/admin"><Image src="/logo.png" alt="Nanawax" width={65} height={29} unoptimized className="invert" /></a>
           <div className="flex items-center gap-3">
+            {/* Indicateur live */}
+            <span className={`w-1.5 h-1.5 rounded-full transition-colors duration-500 ${live ? 'bg-green-400' : 'bg-white/20'}`} />
+            <a
+              href={`/admin/events/${event.id}/checkin`}
+              className="flex items-center gap-2 border border-white/20 text-white text-[11px] font-display uppercase tracking-[0.12em] px-3 py-2.5 hover:border-nw-camel hover:text-nw-camel transition-colors"
+              title="Check-in jour J"
+            >
+              <Scan size={13} />
+            </a>
             <a
               href="/admin/events/new"
               className="flex items-center gap-2 bg-nw-camel text-white text-[11px] font-display uppercase tracking-[0.12em] px-4 py-2.5 hover:bg-[#a3744e] transition-colors"
@@ -236,18 +274,36 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
           </button>
         </div>
 
-        {/* ── RELANCER ──────────────────────────────────────── */}
+        {/* ── RELANCE CIBLÉE ────────────────────────────────── */}
         {pendingGuests.length > 0 && (
-          <div className="pb-8">
+          <div className="pb-8 space-y-3">
+            {/* Sélecteur délai */}
+            {!reminderSent && (
+              <div className="flex gap-2">
+                <p className="text-[10px] font-display uppercase tracking-[0.2em] text-black/50 self-center shrink-0">En attente depuis</p>
+                {([0, 3, 7] as const).map(d => (
+                  <button
+                    key={d}
+                    onClick={() => setReminderDays(d)}
+                    className={`text-[10px] font-display uppercase tracking-[0.1em] px-3 py-1.5 transition-colors ${
+                      reminderDays === d ? 'bg-black text-white' : 'border border-black text-black hover:bg-black/5'
+                    }`}
+                  >
+                    {d === 0 ? 'Toutes' : `${d}j+`}
+                  </button>
+                ))}
+              </div>
+            )}
             <button
-              disabled={reminding || reminderSent}
+              disabled={reminding || reminderSent || pendingToRemind.length === 0}
               onClick={handleRemind}
               className="w-full flex items-center justify-center gap-3 bg-black text-white font-display font-light text-sm uppercase tracking-[0.12em] py-5 hover:bg-nw-camel transition-colors disabled:opacity-50"
             >
               <Mail size={15} />
               {reminding ? 'Envoi en cours…'
-                : reminderSent ? `Relance envoyée (${pendingGuests.length})`
-                : `Relancer les en attente · ${pendingGuests.length}`}
+                : reminderSent ? `Relance envoyée (${pendingToRemind.length})`
+                : pendingToRemind.length === 0 ? 'Aucune à relancer'
+                : `Relancer · ${pendingToRemind.length} invitée${pendingToRemind.length > 1 ? 's' : ''}`}
             </button>
           </div>
         )}

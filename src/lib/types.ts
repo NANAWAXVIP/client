@@ -21,6 +21,8 @@ export interface Guest {
   time_slot?: string
   created_at: string
   confirmed_at?: string
+  checked_in?: boolean
+  checked_in_at?: string
 }
 
 export interface CatalogItem {
