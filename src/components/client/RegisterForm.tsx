@@ -82,8 +82,8 @@ export function RegisterForm({ token }: Props) {
         <p className="text-[10px] font-display font-bold uppercase tracking-[0.3em] text-nw-camel mb-3">
           Votre inscription
         </p>
-        <h1 className="font-display font-bold text-4xl text-nw-black leading-tight">
-          Rejoignez<br />la liste.
+        <h1 className="font-display font-bold text-4xl text-nw-black leading-tight whitespace-nowrap">
+          Vivez l'expérience Nanawax.
         </h1>
       </div>
 
@@ -110,7 +110,7 @@ export function RegisterForm({ token }: Props) {
               required
               value={name}
               onChange={e => setName(e.target.value)}
-              placeholder="Amara Diallo"
+              placeholder="Prénom Nom"
               autoComplete="name"
               className={inputClass}
             />
@@ -123,7 +123,7 @@ export function RegisterForm({ token }: Props) {
               required
               value={email}
               onChange={e => setEmail(e.target.value)}
-              placeholder="amara@example.com"
+              placeholder="votre@email.com"
               autoComplete="email"
               className={inputClass}
             />
