@@ -183,7 +183,7 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
 
           {/* Nom + infos */}
           <h1 className="font-display font-thin text-3xl text-white leading-snug mb-3">{event.name}</h1>
-          <div className="flex flex-wrap gap-x-5 gap-y-1 text-white/40 text-xs font-display">
+          <div className="flex flex-wrap gap-x-5 gap-y-1 text-white text-xs font-display">
             <span className="flex items-center gap-1.5">
               <Calendar size={11} />
               {formatDate(event.date)} · {formatTime(event.date)}
@@ -199,7 +199,7 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
             {stats.map(s => (
               <div key={s.label} className="bg-white/5 border border-white/8 rounded-sm px-3 py-3 text-center">
                 <p className={`text-2xl font-display font-thin ${s.accent}`}>{s.value}</p>
-                <p className="text-[9px] font-display uppercase tracking-[0.15em] text-white/30 mt-1 leading-tight">{s.label}</p>
+                <p className="text-[9px] font-display uppercase tracking-[0.15em] text-white/70 mt-1 leading-tight">{s.label}</p>
               </div>
             ))}
           </div>
