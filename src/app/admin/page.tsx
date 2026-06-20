@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { AdminDashboard } from '@/components/admin/AdminDashboard'
+import { LogoutButton } from '@/components/admin/LogoutButton'
 import Image from 'next/image'
 import Link from 'next/link'
 import type { EventWithStats, Guest, PreRegistration } from '@/lib/types'
@@ -24,6 +25,7 @@ export default async function AdminPage({
       <div className="min-h-screen bg-black flex flex-col">
         <header className="px-6 py-8 flex items-center justify-between border-b border-nw-white/8">
           <Image src="/logo.png" alt="Nanawax" width={75} height={34} unoptimized className="invert" />
+          <LogoutButton />
         </header>
         <div className="flex-1 flex flex-col items-center justify-center px-6 text-center space-y-8">
           <div className="relative">
