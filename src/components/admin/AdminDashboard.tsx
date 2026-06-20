@@ -219,7 +219,7 @@ export function AdminDashboard({ event, allEvents, guests: initialGuests, demand
 
         {/* Capacité */}
         <div className="bg-white border border-black/8 rounded-sm p-5 shadow-sm">
-          <p className="text-[10px] font-display uppercase tracking-[0.2em] text-black/40 mb-5">Places</p>
+          <p className="text-[10px] font-display uppercase tracking-[0.2em] text-black/40 mb-4">Capacité totale</p>
           <CapacitySlider
             eventId={event.id}
             initialCapacity={event.capacity}

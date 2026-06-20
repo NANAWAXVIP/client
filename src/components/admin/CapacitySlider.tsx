@@ -58,36 +58,6 @@ export function CapacitySlider({ eventId, initialCapacity, confirmed, pending, d
   return (
     <div className="space-y-5">
 
-      {/* Stats 4 colonnes */}
-      <div className="grid grid-cols-4 gap-2 text-center">
-        {[
-          { n: confirmed, label: 'Confirmées',   color: 'text-nw-sage',  border: 'border-nw-sage/50',   bg: 'bg-nw-sage/8' },
-          { n: pending,   label: 'Sans réponse', color: 'text-nw-camel', border: 'border-nw-camel/50',  bg: 'bg-nw-camel/8' },
-          { n: declined,  label: 'Déclinées',    color: 'text-red-500',  border: 'border-red-400/40',   bg: 'bg-red-50' },
-          { n: remaining, label: 'Disponibles',
-            color:  isFull ? 'text-red-500' : isAlmostFull ? 'text-orange-500' : 'text-black',
-            border: isFull ? 'border-red-400/50' : isAlmostFull ? 'border-orange-400/50' : 'border-black',
-            bg:     'bg-black/3' },
-        ].map(({ n, label, color, border, bg }) => (
-          <div key={label} className={`${bg} border ${border} py-3 px-1`}>
-            <p className={`text-2xl font-display font-thin ${color}`}>{n}</p>
-            <p className="text-[9px] font-display uppercase tracking-[0.1em] text-black/50 mt-1 leading-tight">{label}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* Barre de remplissage */}
-      <div className="space-y-1.5">
-        <div className="h-1.5 bg-black/8 overflow-hidden">
-          <div className="h-full transition-all duration-500" style={{ width: `${pct}%`, backgroundColor: barColor }} />
-        </div>
-        <div className="flex justify-between items-center">
-          <p className="text-[10px] text-black/40">{pct}% rempli</p>
-          {isFull       && <p className="text-[10px] text-red-500 font-display uppercase tracking-[0.1em]">Complet</p>}
-          {isAlmostFull && !isFull && <p className="text-[10px] text-orange-500 font-display uppercase tracking-[0.1em]">Presque complet</p>}
-        </div>
-      </div>
-
       {/* Contrôle capacité */}
       <div className="border border-black p-4">
         <p className="text-[9px] font-display uppercase tracking-[0.2em] text-black/50 mb-3">
